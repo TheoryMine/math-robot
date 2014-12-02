@@ -1,0 +1,10 @@
+Time: 12.287s elapsed time, 11.593s cpu time, 3.133s GC time
+Theorems: 
+term: f_42 (f_42 a b) c = f_42 (f_42 a b) b
+term: f_42 (f_42 a b) c = f_42 (f_42 a c) b
+term: f_42 (f_42 a b) c = f_42 (f_42 a c) c
+
+
+
+ ***** 
+Conjectures: 

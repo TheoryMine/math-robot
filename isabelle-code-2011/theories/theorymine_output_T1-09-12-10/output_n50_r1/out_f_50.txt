@@ -1,0 +1,9 @@
+Time: 7.850s elapsed time, 7.191s cpu time, 2.003s GC time
+Theorems: 
+term: f_50 (f_50 a b) c = f_50 a b
+term: f_50 (f_50 a b) c = f_50 a c
+
+
+
+ ***** 
+Conjectures: 

@@ -1,0 +1,16 @@
+Time: 15.445s elapsed time, 13.204s cpu time, 4.253s GC time
+Theorems: 
+term: f_28 (f_28 a b) c = f_28 (f_28 a b) b
+term: f_28 (f_28 a b) c = f_28 (f_28 a c) b
+term: f_28 (f_28 a b) c = f_28 (f_28 a c) c
+term: f_28 (f_28 (f_28 a b) c) b = f_28 a b
+term: f_28 (f_28 (f_28 a b) c) b = f_28 a c
+term: f_28 (f_28 (f_28 a b) c) c = f_28 a b
+term: f_28 (f_28 (f_28 a b) c) c = f_28 a c
+term: f_28 (f_28 (f_28 a b) b) c = f_28 a b
+term: f_28 (f_28 (f_28 a b) b) c = f_28 a c
+
+
+
+ ***** 
+Conjectures: 

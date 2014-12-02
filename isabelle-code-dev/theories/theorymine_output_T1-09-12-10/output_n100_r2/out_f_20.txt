@@ -1,0 +1,10 @@
+Time: 10.840s elapsed time, 10.204s cpu time, 3.299s GC time
+Theorems: 
+term: f_20 (f_20 a b) c = f_20 (f_20 a b) b
+term: f_20 (f_20 a b) c = f_20 (f_20 a c) b
+term: f_20 (f_20 a b) c = f_20 (f_20 a c) c
+
+
+
+ ***** 
+Conjectures: 

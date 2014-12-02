@@ -1,0 +1,10 @@
+Time: 10.229s elapsed time, 9.622s cpu time, 2.814s GC time
+Theorems: 
+term: f_16 (f_16 a b) c = f_16 (f_16 a b) b
+term: f_16 (f_16 a b) c = f_16 (f_16 a c) b
+term: f_16 (f_16 a b) c = f_16 (f_16 a c) c
+
+
+
+ ***** 
+Conjectures: 

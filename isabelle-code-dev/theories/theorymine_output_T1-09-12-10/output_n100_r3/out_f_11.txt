@@ -1,0 +1,9 @@
+Time: 538.591s elapsed time, 537.304s cpu time, 165.372s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_11 a (f_11 b a) = f_11 a (f_11 b b)
+f_11 (f_11 a b) c = f_11 (f_11 a b) a
+f_11 (f_11 a b) c = f_11 (f_11 a b) b

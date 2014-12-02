@@ -1,0 +1,16 @@
+Time: 12.189s elapsed time, 10.102s cpu time, 3.116s GC time
+Theorems: 
+term: f_15 (f_15 a b) c = f_15 (f_15 a b) b
+term: f_15 (f_15 a b) c = f_15 (f_15 a c) b
+term: f_15 (f_15 a b) c = f_15 (f_15 a c) c
+term: f_15 (f_15 (f_15 a b) c) b = f_15 a b
+term: f_15 (f_15 (f_15 a b) c) b = f_15 a c
+term: f_15 (f_15 (f_15 a b) c) c = f_15 a b
+term: f_15 (f_15 (f_15 a b) c) c = f_15 a c
+term: f_15 (f_15 (f_15 a b) b) c = f_15 a b
+term: f_15 (f_15 (f_15 a b) b) c = f_15 a c
+
+
+
+ ***** 
+Conjectures: 

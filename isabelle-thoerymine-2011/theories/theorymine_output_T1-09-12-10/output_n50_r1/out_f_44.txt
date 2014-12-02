@@ -1,0 +1,10 @@
+Time: 12.685s elapsed time, 12.081s cpu time, 3.567s GC time
+Theorems: 
+term: f_44 (f_44 a b) c = f_44 (f_44 a b) b
+term: f_44 (f_44 a b) c = f_44 (f_44 a c) b
+term: f_44 (f_44 a b) c = f_44 (f_44 a c) c
+
+
+
+ ***** 
+Conjectures: 

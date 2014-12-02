@@ -1,0 +1,8 @@
+Time: 24.470s elapsed time, 24.251s cpu time, 7.311s GC time
+Theorems: 
+term: f_1 a b = f_1 a a
+
+
+
+ ***** 
+Conjectures: 

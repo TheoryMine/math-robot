@@ -1,0 +1,9 @@
+Time: 13.588s elapsed time, 12.960s cpu time, 4.343s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_41 (f_41 a b) c = f_41 (f_41 a b) b
+f_41 (f_41 a b) c = f_41 (f_41 a c) b
+f_41 (f_41 a b) c = f_41 (f_41 a c) c

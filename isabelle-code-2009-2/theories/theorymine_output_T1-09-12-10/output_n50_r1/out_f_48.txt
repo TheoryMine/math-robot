@@ -1,0 +1,9 @@
+Time: 11.989s elapsed time, 11.389s cpu time, 3.062s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_48 (f_48 a b) c = f_48 (f_48 a b) b
+f_48 (f_48 a b) c = f_48 (f_48 a c) b
+f_48 (f_48 a b) c = f_48 (f_48 a c) c

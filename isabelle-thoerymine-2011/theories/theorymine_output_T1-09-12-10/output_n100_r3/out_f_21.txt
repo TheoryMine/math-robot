@@ -1,0 +1,9 @@
+Time: 10.842s elapsed time, 10.248s cpu time, 3.336s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_21 (f_21 a b) c = f_21 (f_21 a b) b
+f_21 (f_21 a b) c = f_21 (f_21 a c) b
+f_21 (f_21 a b) c = f_21 (f_21 a c) c

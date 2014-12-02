@@ -1,0 +1,10 @@
+Time: 13.026s elapsed time, 12.373s cpu time, 3.846s GC time
+Theorems: 
+term: f_38 (f_38 a b) c = f_38 (f_38 a b) b
+term: f_38 (f_38 a b) c = f_38 (f_38 a c) b
+term: f_38 (f_38 a b) c = f_38 (f_38 a c) c
+
+
+
+ ***** 
+Conjectures: 

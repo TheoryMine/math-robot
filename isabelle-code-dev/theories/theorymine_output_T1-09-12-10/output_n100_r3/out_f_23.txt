@@ -1,0 +1,9 @@
+Time: 9.676s elapsed time, 9.057s cpu time, 2.355s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_23 (f_23 a b) c = f_23 (f_23 a b) b
+f_23 (f_23 a b) c = f_23 (f_23 a c) b
+f_23 (f_23 a b) c = f_23 (f_23 a c) c

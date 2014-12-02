@@ -1,0 +1,7 @@
+Time: 538.533s elapsed time, 538.346s cpu time, 166.511s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: 

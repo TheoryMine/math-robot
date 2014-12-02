@@ -1,0 +1,19 @@
+Time: 545.190s elapsed time, 539.769s cpu time, 166.502s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_2 a (f_2 a b) = f_2 a b
+f_2 (f_2 a a) b = f_2 a b
+f_2 a (f_2 b c) = f_2 (f_2 a b) c
+f_2 a (f_2 b a) = f_2 a (f_2 a a)
+f_2 a (f_2 b a) = f_2 (f_2 a b) b
+f_2 (f_2 a b) c = f_2 a (f_2 b c)
+f_2 a (f_2 a (f_2 a b)) = f_2 a b
+f_2 a (f_2 (f_2 a a) b) = f_2 a b
+f_2 (f_2 a a) (f_2 a b) = f_2 a b
+f_2 (f_2 a (f_2 a a)) b = f_2 a b
+f_2 (f_2 a (C_1 b c)) a = f_2 a a
+f_2 (f_2 a (C_1 b b)) c = f_2 a c
+f_2 (f_2 (f_2 a a) a) b = f_2 a b

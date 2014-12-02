@@ -1,0 +1,8 @@
+Time: 543.021s elapsed time, 541.921s cpu time, 168.530s GC time
+Theorems: 
+term: f_12 (f_12 a b) c = f_12 (f_12 a b) b
+
+
+
+ ***** 
+Conjectures: f_12 (f_12 a b) c = f_12 (f_12 a b) a

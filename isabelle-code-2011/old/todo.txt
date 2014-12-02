@@ -1,0 +1,36 @@
+Critical Path for IsaCoSy: 
+
+ * Total term order for commutativity constraints. 
+ * 
+
+Done: 
+
+theory data-structure for data
+website infrastructure
+
+in progress: 
+
+theory data-structure for functions
+
+
+
+TODO: 
+
+- Write nice name generation for constants/types/free-vars. Eiether a conversion table + function to convert term (or a nice-namer?)
+- Paypal link via website. 
+- Update website text: It usually takes XXX time for the robots to discover a new theorem. 
+- generation of certificate from IsaPlanner proof/synthesis information.
+- generate LHS of equation, no symmetries. re-use datatype generation. 
+- generate RHS for a given LHS, no symmetries. by IsaCoSy.
+- Isabelle datatype => internal datatype translation (polymorphism!)
+- theory data-structure for theorems
+- website email sending. 
+
+
+IsaCoSy: 
+- Change free-var limits not to depend on order of instantiation.   
+- fix generation of sterm upto given term (currently a problem with free-vars). 
+- allow inclusion of a given set of terms instead of just given constants (to make recursive calls measure decreasing).
+- fix ordering: need total one for commutativity/change constraints after each theorem rather than each size. 
+- Provide better mechanism to update constraints: shouldn't have to fully specify them beforehand; should be able to update an sterm from a given update to constinfo (e.g. by reconstruction of constraints).
+- figure out how big to go: max size for IsaCoSy.

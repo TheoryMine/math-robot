@@ -1,0 +1,16 @@
+Time: 11.494s elapsed time, 9.428s cpu time, 2.498s GC time
+Theorems: 
+term: f_21 (f_21 a b) c = f_21 (f_21 a b) b
+term: f_21 (f_21 a b) c = f_21 (f_21 a c) b
+term: f_21 (f_21 a b) c = f_21 (f_21 a c) c
+term: f_21 (f_21 (f_21 a b) c) b = f_21 a b
+term: f_21 (f_21 (f_21 a b) c) b = f_21 a c
+term: f_21 (f_21 (f_21 a b) c) c = f_21 a b
+term: f_21 (f_21 (f_21 a b) c) c = f_21 a c
+term: f_21 (f_21 (f_21 a b) b) c = f_21 a b
+term: f_21 (f_21 (f_21 a b) b) c = f_21 a c
+
+
+
+ ***** 
+Conjectures: 

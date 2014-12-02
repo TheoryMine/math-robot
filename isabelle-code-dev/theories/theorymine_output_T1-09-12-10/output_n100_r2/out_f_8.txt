@@ -1,0 +1,8 @@
+Time: 159.892s elapsed time, 158.770s cpu time, 49.051s GC time
+Theorems: 
+term: f_8 (f_8 a b) c = f_8 b c
+
+
+
+ ***** 
+Conjectures: 

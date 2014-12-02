@@ -1,0 +1,10 @@
+Time: 12.295s elapsed time, 11.633s cpu time, 3.065s GC time
+Theorems: 
+term: f_30 (f_30 a b) c = f_30 (f_30 a b) b
+term: f_30 (f_30 a b) c = f_30 (f_30 a c) b
+term: f_30 (f_30 a b) c = f_30 (f_30 a c) c
+
+
+
+ ***** 
+Conjectures: 

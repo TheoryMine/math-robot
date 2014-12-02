@@ -1,0 +1,57 @@
+Time: 627.179s elapsed time, 597.298s cpu time, 193.658s GC time
+Theorems: 
+term: f_8 a (C_2 b c) = f_8 a (C_2 a c)
+
+
+
+ ***** 
+Conjectures: f_8 a b = f_8 a a
+f_8 a (f_8 b c) = f_8 a b
+f_8 a (f_8 b c) = f_8 a c
+f_8 a (C_2 b c) = f_8 a b
+f_8 a (f_8 b c) = f_8 a (f_8 a a)
+f_8 a (f_8 b c) = f_8 a (f_8 a b)
+f_8 a (f_8 b c) = f_8 a (f_8 a c)
+f_8 a (f_8 b c) = f_8 a (f_8 b a)
+f_8 a (f_8 b c) = f_8 a (f_8 b b)
+f_8 a (f_8 b c) = f_8 a (f_8 c a)
+f_8 a (f_8 b c) = f_8 a (f_8 c b)
+f_8 a (f_8 b c) = f_8 a (f_8 c c)
+f_8 a (C_1 b c) = f_8 a (f_8 a a)
+f_8 a (C_1 b c) = f_8 a (C_1 b b)
+f_8 a (C_1 b c) = f_8 a (C_1 c b)
+f_8 a (C_1 b c) = f_8 a (C_1 c c)
+f_8 a (C_1 b c) = f_8 a (C_2 a b)
+f_8 a (C_1 b c) = f_8 a (C_2 a c)
+f_8 a (C_2 b c) = f_8 a (f_8 a a)
+f_8 a (C_2 b c) = f_8 a (f_8 a b)
+f_8 a (C_2 b c) = f_8 a (f_8 b a)
+f_8 a (C_2 b c) = f_8 a (f_8 b b)
+f_8 a (C_2 b c) = f_8 a (C_1 c c)
+f_8 (f_8 a b) c = f_8 (f_8 a a) a
+f_8 (f_8 a b) c = f_8 (f_8 a a) b
+f_8 (f_8 a b) c = f_8 (f_8 a a) c
+f_8 (f_8 a b) c = f_8 (f_8 a b) a
+f_8 (f_8 a b) c = f_8 (f_8 a b) b
+f_8 (f_8 a b) c = f_8 (f_8 a c) a
+f_8 (f_8 a b) c = f_8 (f_8 a c) b
+f_8 (f_8 a b) c = f_8 (f_8 a c) c
+f_8 a (f_8 b (f_8 c a)) = f_8 a c
+f_8 a (f_8 b (f_8 c b)) = f_8 a c
+f_8 a (f_8 b (f_8 c c)) = f_8 a c
+f_8 a (f_8 b (f_8 a c)) = f_8 a c
+f_8 a (f_8 b (f_8 b c)) = f_8 a c
+f_8 a (f_8 a (f_8 b c)) = f_8 a b
+f_8 a (f_8 a (f_8 b c)) = f_8 a c
+f_8 a (f_8 a (C_2 b c)) = f_8 a b
+f_8 a (f_8 (f_8 b c) a) = f_8 a b
+f_8 a (f_8 (f_8 b c) a) = f_8 a c
+f_8 a (f_8 (f_8 b c) b) = f_8 a c
+f_8 a (f_8 (f_8 b c) c) = f_8 a b
+f_8 a (f_8 (f_8 b a) c) = f_8 a b
+f_8 a (f_8 (f_8 b b) c) = f_8 a b
+f_8 a (f_8 (f_8 a b) c) = f_8 a b
+f_8 a (C_2 (f_8 b a) c) = f_8 a b
+f_8 a (C_2 (f_8 b b) c) = f_8 a b
+f_8 a (C_2 (f_8 a b) c) = f_8 a b
+f_8 a (C_2 (C_2 b c) c) = f_8 a b

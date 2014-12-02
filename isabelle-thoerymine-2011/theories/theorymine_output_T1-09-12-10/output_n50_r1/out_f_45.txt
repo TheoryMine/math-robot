@@ -1,0 +1,9 @@
+Time: 12.400s elapsed time, 11.743s cpu time, 3.244s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_45 (f_45 a b) c = f_45 (f_45 a b) b
+f_45 (f_45 a b) c = f_45 (f_45 a c) b
+f_45 (f_45 a b) c = f_45 (f_45 a c) c

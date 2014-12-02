@@ -1,0 +1,9 @@
+Time: 10.415s elapsed time, 9.798s cpu time, 2.915s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_14 (f_14 a b) c = f_14 (f_14 a b) b
+f_14 (f_14 a b) c = f_14 (f_14 a c) b
+f_14 (f_14 a b) c = f_14 (f_14 a c) c

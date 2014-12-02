@@ -1,0 +1,9 @@
+Time: 14.040s elapsed time, 13.499s cpu time, 4.461s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_26 (f_26 a b) c = f_26 (f_26 a b) b
+f_26 (f_26 a b) c = f_26 (f_26 a c) b
+f_26 (f_26 a b) c = f_26 (f_26 a c) c

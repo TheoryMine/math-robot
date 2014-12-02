@@ -1,0 +1,9 @@
+Time: 8.191s elapsed time, 7.530s cpu time, 2.172s GC time
+Theorems: 
+term: f_32 (f_32 a b) c = f_32 a b
+term: f_32 (f_32 a b) c = f_32 a c
+
+
+
+ ***** 
+Conjectures: 

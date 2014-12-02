@@ -1,0 +1,9 @@
+Time: 12.887s elapsed time, 12.272s cpu time, 3.371s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_37 (f_37 a b) c = f_37 (f_37 a b) b
+f_37 (f_37 a b) c = f_37 (f_37 a c) b
+f_37 (f_37 a b) c = f_37 (f_37 a c) c

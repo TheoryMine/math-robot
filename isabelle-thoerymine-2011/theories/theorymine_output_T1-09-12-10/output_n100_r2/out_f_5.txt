@@ -1,0 +1,57 @@
+Time: 669.788s elapsed time, 642.097s cpu time, 214.362s GC time
+Theorems: 
+term: f_5 a (f_5 b c) = f_5 a (f_5 a c)
+term: f_5 a (f_5 b c) = f_5 a (f_5 b b)
+term: f_5 a (C_1 b c) = f_5 a (C_1 b b)
+term: f_5 a (C_1 b c) = f_5 a (C_1 c b)
+term: f_5 a (C_1 b c) = f_5 a (C_1 c c)
+
+
+
+ ***** 
+Conjectures: f_5 a b = f_5 a a
+f_5 a (f_5 b c) = f_5 a b
+f_5 a (f_5 b c) = f_5 a c
+f_5 a (C_2 b c) = f_5 a b
+f_5 a (f_5 b c) = f_5 a (f_5 a a)
+f_5 a (f_5 b c) = f_5 a (f_5 a b)
+f_5 a (f_5 b c) = f_5 a (f_5 b a)
+f_5 a (f_5 b c) = f_5 a (f_5 c a)
+f_5 a (f_5 b c) = f_5 a (f_5 c b)
+f_5 a (f_5 b c) = f_5 a (f_5 c c)
+f_5 a (C_1 b c) = f_5 a (f_5 a a)
+f_5 a (C_1 b c) = f_5 a (C_2 a b)
+f_5 a (C_1 b c) = f_5 a (C_2 a c)
+f_5 a (C_2 b c) = f_5 a (f_5 a a)
+f_5 a (C_2 b c) = f_5 a (f_5 a b)
+f_5 a (C_2 b c) = f_5 a (f_5 b a)
+f_5 a (C_2 b c) = f_5 a (f_5 b b)
+f_5 a (C_2 b c) = f_5 a (C_1 c c)
+f_5 a (C_2 b c) = f_5 a (C_2 a c)
+f_5 (f_5 a b) c = f_5 (f_5 a a) a
+f_5 (f_5 a b) c = f_5 (f_5 a a) b
+f_5 (f_5 a b) c = f_5 (f_5 a a) c
+f_5 (f_5 a b) c = f_5 (f_5 a b) a
+f_5 (f_5 a b) c = f_5 (f_5 a b) b
+f_5 (f_5 a b) c = f_5 (f_5 a c) a
+f_5 (f_5 a b) c = f_5 (f_5 a c) b
+f_5 (f_5 a b) c = f_5 (f_5 a c) c
+f_5 a (f_5 b (f_5 c a)) = f_5 a c
+f_5 a (f_5 b (f_5 c b)) = f_5 a c
+f_5 a (f_5 b (f_5 c c)) = f_5 a c
+f_5 a (f_5 b (f_5 a c)) = f_5 a c
+f_5 a (f_5 b (f_5 b c)) = f_5 a c
+f_5 a (f_5 a (f_5 b c)) = f_5 a b
+f_5 a (f_5 a (f_5 b c)) = f_5 a c
+f_5 a (f_5 a (C_2 b c)) = f_5 a b
+f_5 a (f_5 (f_5 b c) a) = f_5 a b
+f_5 a (f_5 (f_5 b c) a) = f_5 a c
+f_5 a (f_5 (f_5 b c) b) = f_5 a c
+f_5 a (f_5 (f_5 b c) c) = f_5 a b
+f_5 a (f_5 (f_5 b a) c) = f_5 a b
+f_5 a (f_5 (f_5 b b) c) = f_5 a b
+f_5 a (f_5 (f_5 a b) c) = f_5 a b
+f_5 a (C_2 (f_5 b a) c) = f_5 a b
+f_5 a (C_2 (f_5 b b) c) = f_5 a b
+f_5 a (C_2 (f_5 a b) c) = f_5 a b
+f_5 a (C_2 (C_2 b c) c) = f_5 a b

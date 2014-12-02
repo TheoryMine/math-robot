@@ -1,0 +1,9 @@
+Time: 7.965s elapsed time, 7.328s cpu time, 2.146s GC time
+Theorems: 
+term: f_29 (f_29 a b) c = f_29 a b
+term: f_29 (f_29 a b) c = f_29 a c
+
+
+
+ ***** 
+Conjectures: 

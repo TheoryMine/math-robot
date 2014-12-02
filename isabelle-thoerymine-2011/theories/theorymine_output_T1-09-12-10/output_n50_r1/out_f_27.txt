@@ -1,0 +1,10 @@
+Time: 12.887s elapsed time, 12.253s cpu time, 3.330s GC time
+Theorems: 
+term: f_27 (f_27 a b) c = f_27 (f_27 a b) b
+term: f_27 (f_27 a b) c = f_27 (f_27 a c) b
+term: f_27 (f_27 a b) c = f_27 (f_27 a c) c
+
+
+
+ ***** 
+Conjectures: 

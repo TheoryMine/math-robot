@@ -1,0 +1,16 @@
+Time: 14.026s elapsed time, 11.880s cpu time, 3.241s GC time
+Theorems: 
+term: f_35 (f_35 a b) c = f_35 (f_35 a b) b
+term: f_35 (f_35 a b) c = f_35 (f_35 a c) b
+term: f_35 (f_35 a b) c = f_35 (f_35 a c) c
+term: f_35 (f_35 (f_35 a b) c) b = f_35 a b
+term: f_35 (f_35 (f_35 a b) c) b = f_35 a c
+term: f_35 (f_35 (f_35 a b) c) c = f_35 a b
+term: f_35 (f_35 (f_35 a b) c) c = f_35 a c
+term: f_35 (f_35 (f_35 a b) b) c = f_35 a b
+term: f_35 (f_35 (f_35 a b) b) c = f_35 a c
+
+
+
+ ***** 
+Conjectures: 

@@ -1,0 +1,9 @@
+Time: 6.016s elapsed time, 5.384s cpu time, 1.300s GC time
+Theorems: 
+term: f_17 (f_17 a b) c = f_17 a b
+term: f_17 (f_17 a b) c = f_17 a c
+
+
+
+ ***** 
+Conjectures: 

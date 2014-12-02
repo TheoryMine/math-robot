@@ -1,0 +1,18 @@
+Time: 149.035s elapsed time, 145.617s cpu time, 43.600s GC time
+Theorems: 
+term: f_7 a (f_7 b c) = f_7 a b
+term: f_7 a (f_7 b c) = f_7 a c
+term: f_7 a (C_2 b c) = f_7 a b
+term: f_7 (f_7 a b) c = f_7 (f_7 a a) a
+term: f_7 (f_7 a b) c = f_7 (f_7 a a) b
+term: f_7 (f_7 a b) c = f_7 (f_7 a a) c
+term: f_7 (f_7 a b) c = f_7 (f_7 a b) a
+term: f_7 (f_7 a b) c = f_7 (f_7 a b) b
+term: f_7 (f_7 a b) c = f_7 (f_7 a c) a
+term: f_7 (f_7 a b) c = f_7 (f_7 a c) b
+term: f_7 (f_7 a b) c = f_7 (f_7 a c) c
+
+
+
+ ***** 
+Conjectures: f_7 a b = f_7 a a

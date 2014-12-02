@@ -1,0 +1,200 @@
+                    f_1 => Function name : fungen-T_1.f_1, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> nat
+                           f_1 (C_1 a b) c = a
+                           f_1 (C_2 a b) c = f_1 a (C_1 b (f_1 a c))
+                    f_2 => Function name : fungen-T_1.f_2, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_2 (C_1 a b) c = c
+                           f_2 (C_2 a b) c = C_2 (C_2 (f_2 a a) b) b
+                    f_3 => Function name : fungen-T_1.f_3, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_3 (C_1 a b) c = C_1 a b
+                           f_3 (C_2 a b) c = f_3 a (f_3 a c)
+                    f_4 => Function name : fungen-T_1.f_4, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_4 (C_1 a b) c = C_2 c b
+                           f_4 (C_2 a b) c = C_2 (f_4 a (f_4 a c)) b
+                    f_5 => Function name : fungen-T_1.f_5, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_5 (C_1 a b) c = C_2 (C_1 a a) a
+                           f_5 (C_2 a b) c = f_5 a (C_2 (C_2 a b) b)
+                    f_6 => Function name : fungen-T_1.f_6, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_6 (C_1 a b) c = C_2 (C_1 b a) b
+                           f_6 (C_2 a b) c = f_6 a a
+                    f_7 => Function name : fungen-T_1.f_7, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_7 (C_1 a b) c = C_2 (C_1 b b) a
+                           f_7 (C_2 a b) c = f_7 a (C_2 a b)
+                    f_8 => Function name : fungen-T_1.f_8, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_8 (C_1 a b) c = C_2 (C_1 b b) a
+                           f_8 (C_2 a b) c = f_8 a (f_8 a (C_2 c b))
+                    f_9 => Function name : fungen-T_1.f_9, 
+                           type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                           f_9 (C_1 a b) c = C_2 (C_1 b b) b
+                           f_9 (C_2 a b) c = f_9 a (C_2 (C_1 b b) b)
+                    f_10 => Function name : fungen-T_1.f_10, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_10 (C_1 a b) c = C_2 (C_2 c a) b
+                            f_10 (C_2 a b) c = C_2 (f_10 a a) b
+                    f_11 => Function name : fungen-T_1.f_11, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_11 (C_1 a b) c = C_2 (C_2 c b) a
+                            f_11 (C_2 a b) c = C_2 (f_11 a (C_2 a b)) b
+                    f_12 => Function name : fungen-T_1.f_12, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_12 (C_1 a b) c = C_2 (C_2 (C_1 a a) a) b
+                            f_12 (C_2 a b) c = f_12 a (C_1 b b)
+                    f_13 => Function name : fungen-T_1.f_13, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_13 (C_1 a b) c = C_2 (C_2 (C_1 a a) a) b
+                            f_13 (C_2 a b) c = f_13 a (f_13 a (f_13 a a))
+                    f_14 => Function name : fungen-T_1.f_14, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_14 (C_1 a b) c = C_2 (C_2 (C_1 a a) b) a
+                            f_14 (C_2 a b) c = f_14 a (C_2 (f_14 a c) b)
+                    f_15 => Function name : fungen-T_1.f_15, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_15 (C_1 a b) c = C_2 (C_2 (C_1 a b) a) b
+                            f_15 (C_2 a b) c = C_2 (f_15 a (C_1 b b)) b
+                    f_16 => Function name : fungen-T_1.f_16, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_16 (C_1 a b) c = C_2 (C_2 (C_1 a b) b) a
+                            f_16 (C_2 a b) c = C_2 (C_2 (f_16 a a) b) b
+                    f_17 => Function name : fungen-T_1.f_17, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_17 (C_1 a b) c = C_2 (C_2 (C_1 b a) a) a
+                            f_17 (C_2 a b) c = f_17 a (f_17 a c)
+                    f_18 => Function name : fungen-T_1.f_18, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_18 (C_1 a b) c = C_2 (C_2 (C_1 b b) a) a
+                            f_18 (C_2 a b) c = C_2 (f_18 a (f_18 a c)) b
+                    f_19 => Function name : fungen-T_1.f_19, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_19 (C_1 a b) c = C_2 (C_2 (C_1 b b) a) b
+                            f_19 (C_2 a b) c = f_19 a (C_2 (C_2 a b) b)
+                    f_20 => Function name : fungen-T_1.f_20, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_20 (C_1 a b) c = C_2 (C_2 (C_2 c a) b) a
+                            f_20 (C_2 a b) c = f_20 a a
+                    f_21 => Function name : fungen-T_1.f_21, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_21 (C_1 a b) c = C_2 (C_2 (C_2 c a) b) b
+                            f_21 (C_2 a b) c = f_21 a (C_2 a b)
+                    f_22 => Function name : fungen-T_1.f_22, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_22 (C_1 a b) c = C_2 (C_2 (C_2 c a) b) b
+                            f_22 (C_2 a b) c = f_22 a (f_22 a (C_2 c b))
+                    f_23 => Function name : fungen-T_1.f_23, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_23 (C_1 a b) c = C_2 (C_2 (C_2 c b) a) a
+                            f_23 (C_2 a b) c = f_23 a (C_2 (C_1 b b) b)
+                    f_24 => Function name : fungen-T_1.f_24, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_24 (C_1 a b) c = C_2 (C_2 (C_2 c b) b) a
+                            f_24 (C_2 a b) c = C_2 (f_24 a a) b
+                    f_25 => Function name : fungen-T_1.f_25, 
+                            type: T_1 \<Rightarrow> T_1 \<Rightarrow> T_1
+                            f_25 (C_1 a b) c = C_2 (C_2 (C_2 c b) b) b
+                            f_25 (C_2 a b) c = C_2 (f_25 a (C_2 a b)) b
+                    f_26 => Function name : fungen-T_1.f_26, 
+                            type: T_1 \<Rightarrow> T_2 \<Rightarrow> T_1
+                            f_26 (C_1 a b) c = C_2 (C_1 a a) b
+                            f_26 (C_2 a b) c = C_2 (C_2 (f_26 a c) b) b
+                    f_27 => Function name : fungen-T_1.f_27, 
+                            type: T_1 \<Rightarrow> T_2 \<Rightarrow> T_1
+                            f_27 (C_1 a b) c = C_2 (C_2 (C_1 b a) b) a
+                            f_27 (C_2 a b) c = C_2 (f_27 a c) b
+                    f_28 => Function name : fungen-T_1.f_28, 
+                            type: T_1 \<Rightarrow> T_3 \<Rightarrow> T_1
+                            f_28 (C_1 a b) c = C_1 b a
+                            f_28 (C_2 a b) c = f_28 a c
+                    f_29 => Function name : fungen-T_1.f_29, 
+                            type: T_1 \<Rightarrow> T_3 \<Rightarrow> T_1
+                            f_29 (C_1 a b) c = C_2 (C_2 (C_1 b b) b) b
+                            f_29 (C_2 a b) c = f_29 a c
+                    f_30 => Function name : fungen-T_1.f_30, 
+                            type: T_1 \<Rightarrow> T_4 \<Rightarrow> T_1
+                            f_30 (C_1 a b) c = C_2 (C_1 a b) a
+                            f_30 (C_2 a b) c = C_2 (f_30 a c) b
+                    f_31 => Function name : fungen-T_1.f_31, 
+                            type: T_1 \<Rightarrow> T_4 \<Rightarrow> T_1
+                            f_31 (C_1 a b) c = C_2 (C_2 (C_1 a a) b) a
+                            f_31 (C_2 a b) c = C_2 (C_2 (f_31 a c) b) b
+                    f_32 => Function name : fungen-T_1.f_32, 
+                            type: T_1 \<Rightarrow> T_5 \<Rightarrow> T_1
+                            f_32 (C_1 a b) c = C_2 (C_1 b b) b
+                            f_32 (C_2 a b) c = f_32 a c
+                    f_33 => Function name : fungen-T_1.f_33, 
+                            type: T_1 \<Rightarrow> T_6 \<Rightarrow> T_1
+                            f_33 (C_1 a b) c = C_2 (C_2 (C_1 a a) b) b
+                            f_33 (C_2 a b) c = C_2 (f_33 a c) b
+                    f_34 => Function name : fungen-T_1.f_34, 
+                            type: T_1 \<Rightarrow> T_6 \<Rightarrow> T_1
+                            f_34 (C_1 a b) c = C_2 (C_2 (C_1 b a) b) b
+                            f_34 (C_2 a b) c = C_2 (C_2 (f_34 a c) b) b
+                    f_35 => Function name : fungen-T_1.f_35, 
+                            type: T_1 \<Rightarrow> T_7 \<Rightarrow> T_1
+                            f_35 (C_1 a b) c = C_2 (C_2 (C_1 b a) a) a
+                            f_35 (C_2 a b) c = f_35 a c
+                    f_36 => Function name : fungen-T_1.f_36, 
+                            type: T_1 \<Rightarrow> T_7 \<Rightarrow> T_7
+                            f_36 (C_1 a b) c = c
+                            f_36 (C_2 a b) c = f_36 a (f_36 a (f_36 a c))
+                    f_37 => Function name : fungen-T_1.f_37, 
+                            type: T_1 \<Rightarrow> T_8 \<Rightarrow> T_1
+                            f_37 (C_1 a b) c = C_2 (C_1 a b) b
+                            f_37 (C_2 a b) c = C_2 (C_2 (f_37 a c) b) b
+                    f_38 => Function name : fungen-T_1.f_38, 
+                            type: T_1 \<Rightarrow> T_8 \<Rightarrow> T_1
+                            f_38 (C_1 a b) c = C_2 (C_2 (C_1 b b) a) a
+                            f_38 (C_2 a b) c = C_2 (f_38 a c) b
+                    f_39 => Function name : fungen-T_1.f_39, 
+                            type: T_1 \<Rightarrow> T_9 \<Rightarrow> T_1
+                            f_39 (C_1 a b) c = C_2 (C_1 a a) a
+                            f_39 (C_2 a b) c = f_39 a c
+                    f_40 => Function name : fungen-T_1.f_40, 
+                            type: T_1 \<Rightarrow> T_10 \<Rightarrow> T_1
+                            f_40 (C_1 a b) c = C_2 (C_1 b a) a
+                            f_40 (C_2 a b) c = C_2 (f_40 a c) b
+                    f_41 => Function name : fungen-T_1.f_41, 
+                            type: T_1 \<Rightarrow> T_10 \<Rightarrow> T_1
+                            f_41 (C_1 a b) c = C_2 (C_2 (C_1 a b) a) a
+                            f_41 (C_2 a b) c = C_2 (C_2 (f_41 a c) b) b
+                    f_42 => Function name : fungen-T_1.f_42, 
+                            type: T_1 \<Rightarrow> T_11 \<Rightarrow> T_1
+                            f_42 (C_1 a b) c = C_2 (C_2 (C_1 a a) a) b
+                            f_42 (C_2 a b) c = f_42 a c
+                    f_43 => Function name : fungen-T_1.f_43, 
+                            type: T_1 \<Rightarrow> T_12 \<Rightarrow> T_1
+                            f_43 (C_1 a b) c = C_1 a a
+                            f_43 (C_2 a b) c = C_2 (C_2 (f_43 a c) b) b
+                    f_44 => Function name : fungen-T_1.f_44, 
+                            type: T_1 \<Rightarrow> T_12 \<Rightarrow> T_1
+                            f_44 (C_1 a b) c = C_2 (C_2 (C_1 a b) a) b
+                            f_44 (C_2 a b) c = C_2 (f_44 a c) b
+                    f_45 => Function name : fungen-T_1.f_45, 
+                            type: T_1 \<Rightarrow> T_12 \<Rightarrow> T_1
+                            f_45 (C_1 a b) c = C_2 (C_2 (C_1 b b) a) b
+                            f_45 (C_2 a b) c = C_2 (C_2 (f_45 a c) b) b
+                    f_46 => Function name : fungen-T_1.f_46, 
+                            type: T_1 \<Rightarrow> T_13 \<Rightarrow> T_1
+                            f_46 (C_1 a b) c = C_2 (C_2 (C_1 b a) b) a
+                            f_46 (C_2 a b) c = f_46 a c
+                    f_47 => Function name : fungen-T_1.f_47, 
+                            type: T_1 \<Rightarrow> T_14 \<Rightarrow> T_1
+                            f_47 (C_1 a b) c = C_1 a b
+                            f_47 (C_2 a b) c = C_2 (f_47 a c) b
+                    f_48 => Function name : fungen-T_1.f_48, 
+                            type: T_1 \<Rightarrow> T_14 \<Rightarrow> T_1
+                            f_48 (C_1 a b) c = C_2 (C_1 b a) b
+                            f_48 (C_2 a b) c = C_2 (C_2 (f_48 a c) b) b
+                    f_49 => Function name : fungen-T_1.f_49, 
+                            type: T_1 \<Rightarrow> T_14 \<Rightarrow> T_1
+                            f_49 (C_1 a b) c = C_2 (C_2 (C_1 b b) b) a
+                            f_49 (C_2 a b) c = C_2 (f_49 a c) b
+                    f_50 => Function name : fungen-T_1.f_50, 
+                            type: T_1 \<Rightarrow> T_15 \<Rightarrow> T_1
+                            f_50 (C_1 a b) c = C_2 (C_1 a b) a
+                            f_50 (C_2 a b) c = f_50 a c

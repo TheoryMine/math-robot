@@ -1,0 +1,10 @@
+Time: 11.983s elapsed time, 11.344s cpu time, 2.846s GC time
+Theorems: 
+term: f_40 (f_40 a b) c = f_40 (f_40 a b) b
+term: f_40 (f_40 a b) c = f_40 (f_40 a c) b
+term: f_40 (f_40 a b) c = f_40 (f_40 a c) c
+
+
+
+ ***** 
+Conjectures: 

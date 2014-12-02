@@ -1,0 +1,9 @@
+Time: 12.801s elapsed time, 12.163s cpu time, 3.659s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_43 (f_43 a b) c = f_43 (f_43 a b) b
+f_43 (f_43 a b) c = f_43 (f_43 a c) b
+f_43 (f_43 a b) c = f_43 (f_43 a c) c

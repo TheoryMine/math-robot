@@ -1,0 +1,8 @@
+Time: 536.117s elapsed time, 534.968s cpu time, 163.477s GC time
+Theorems: 
+
+
+
+ ***** 
+Conjectures: f_3 (f_3 a b) c = f_3 (f_3 a b) a
+f_3 (f_3 a b) c = f_3 (f_3 a b) b
