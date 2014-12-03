@@ -136,7 +136,7 @@ ML {*
         seq_fold (fn (x as ((s,ty,rty),eqs)) => fn thy => 
                  let val result = 
                          (if (FastArgNeglect.syntactically_arg_neglecting_fundef eqs)
-                             orelse (DB_Def_Utils.pattern_arg_neglecting_fundef eqs)
+                             orelse (DB_Def_Utils.pattern_arg_neglecting_fundef thy eqs)
                              orelse (List.all (not o has_non_type_const) eqs)
                           then SynthTrivial
                           else (let val (fnm, (err_opt, thy2)) = 
