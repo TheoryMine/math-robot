@@ -8,6 +8,7 @@ use_thys
   "tm_datatypes"
   , "tm_functions"
   , "tm_theorems"
+  , "run_synth"
   (* , "run_synth_funs"
   , "run_synth_thms" *)
 ];
