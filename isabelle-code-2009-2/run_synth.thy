@@ -2,33 +2,6 @@ theory "run_synth"
 imports "tm_datatypes" "tm_functions" "tm_theorems"
 begin
 
-(* fun function and theorem synthesis *)
-
--- "Datatype to run synthesis on: functions will be recursive on this type."
-ML {* 
-  val dname_to_synth_funs_for = (Tn.mk "T_1");
-*}
--- "Examine/print the datatypes in the context"
-ML {* TM_Data.DType.Ctxt.print_dtyp @{context} dname_to_synth_funs_for; *}
-
--- "Setup synthesis
-    (rem_n,mod_n), for generating only a small filtered set. 
-    (0,1) to generate all functions
-    (0,200) to generate 1st, 201st, 401st,... etc, i.e. 1 in every 200 functions
-    (1,200) to generate 2nd, 202nd, 402nd,... etc, i.e. 1 in every 200 functions, but offset by 1"
-ML {* 
-  val rem_n = 0;
-  val mod_n = 1;
-*}
-
--- "the number of functions to skip over; typically the biggest number of function in the output
-    directory (so that we can keep on discovering new stuff) 
-    IMPROVE: could look at filenames and work this out automatically... " 
-ML {* 
-  val skip_first_n = 64;
-*}
-
-
 ML {*
 (* synthesises and saves theorems for a function to a file. *)
 fun synth_and_save_thms_for_fun thy n fname = 
@@ -42,9 +15,16 @@ fun synth_and_save_thms_for_fun thy n fname =
 ML {* 
   (* Synthesise functions recursive on dn, which have nargs other argument. Includes synthesis of 
      theorems about these functions. 
-       nargs : int = number of other (non-rec) arguments
+       (skip_first_n : int, rem_n : int, mod_n : int) = for generating only a small filtered set.
+         skip_first_n = skip first n functions.
+         rem_n = only use functions that moduldo mod_n have remainder id rem_n
+         mod_n = make a modulo value for functions so you can filter which you select from using rem_n
+         (0,1) to generate all functions
+         (0,200) to generate 1st, 201st, 401st,... etc, i.e. 1 in every 200 functions
+         (1,200) to generate 2nd, 202nd, 402nd,... etc, i.e. 1 in every 200 functions, but offset by 1"
+       nargs : int = number of other (non-rec) arguments; 1 = will generate arity 2 functions. 
   *)
-  fun run_synth dn nargs thy = 
+  fun run_synth dn (skip_first_n, rem_n, mod_n) nargs thy = 
       let
         val (_,funspec_seq) =
             Seq.chop skip_first_n 
@@ -53,7 +33,7 @@ ML {*
         seq_fold (fn (n,x as ((s,ty,rty),eqs)) => fn (goodn,ignoredn,badfunn,funerrorl,prferrorl) => 
                  let val result = 
                          (if (FastArgNeglect.syntactically_arg_neglecting_fundef eqs)
-                             orelse (DB_Def_Utils.pattern_arg_neglecting_fundef eqs)
+                             orelse (DB_Def_Utils.pattern_arg_neglecting_fundef thy eqs)
                              orelse (List.all (not o has_non_type_const) eqs)
                           then SynthTrivial
                           else (let val (fnm, (err_opt, thy2)) =  
@@ -79,50 +59,6 @@ ML {*
               (filterseq_1_in_n (ref rem_n) mod_n funspec_seq)
               (0,0,0,[],[])
       end;
-*}
-
-ML {* 
-  val results = run_synth dname_to_synth_funs_for 1 @{theory};
-*}
-
-ML {* 
-  val (goodn,ignoredn,badfunn,funerrorl,prferrorl) = results;
-*}
-
-
--- "Examine/print the functions in the context"
-ML {* TM_Data.Fun.Ctxt.print @{context} *}
-
--- "Partition functions into argument neglecting and others (not currently used)"
-ML {*
-val fntab = TM_Data.Fun.Ctxt.get_fntab @{context};
-val ((buggy_fs,neglect_fs,maybe_neglect_fs,fs)) =
-    Fn.NTab.fold 
-      (fn (fname,(fconst as (c,ty),eqs)) => fn (buggy_fs,neglect_fs,maybe_neglect_fs,fs) => 
-       let (* prepare the proof tool(s) *)
-         val prover_timeout = 5; (* in seconds *)
-         val counterex_timeout = 5; (* in seconds *)
-         val neglect_infos = Seq.list_of 
-             (DB_Def_Utils.neglects_argument_raw 
-               @{context} 
-               TM_Provers.ripple_meth_text 
-               prover_timeout 
-               counterex_timeout 
-               (Const fconst));
-       in
-        case map_filter (fn (t,SOME thm) => SOME thm | _ => NONE) neglect_infos
-          of [] => (case map_filter (fn (t,NONE) => SOME t | _ => NONE) neglect_infos 
-                      of [] => (buggy_fs,neglect_fs,maybe_neglect_fs,fname::fs)
-                       | l => (* generate theorems for maybe neglecting stuff *)
-                              (synth_and_save_thms_for_fun @{context} fname;
-                               (buggy_fs,neglect_fs,(fname,l)::maybe_neglect_fs,fs)))
-           | l => (* generate theorems non-argument neglecting functions *)
-                  (synth_and_save_thms_for_fun @{context} fname;         
-                   (buggy_fs,(fname,l)::neglect_fs,maybe_neglect_fs,fs))
-       end handle _ => (fname::buggy_fs,neglect_fs,maybe_neglect_fs,fs)
-       )
-       fntab
-       ([],[],[],[]);
 *}
 
 end;

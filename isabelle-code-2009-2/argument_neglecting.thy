@@ -85,7 +85,7 @@ fun is_step_case eq =
 fun base_and_step_cases_of_eqns eqns = 
     fold (fn a => fn (l,r) => if is_step_case a then (l,a :: r) else (a :: l,r)) eqns ([],[])
 
-(* Detects trivialt argument neglecting patterns like:
+(* Detects trivial argument neglecting patterns like:
   base case: f (C0 x) y = K x
   step case: f (C1 x) y = f x (G y)
   i.e. where base case ignores the second argument 
