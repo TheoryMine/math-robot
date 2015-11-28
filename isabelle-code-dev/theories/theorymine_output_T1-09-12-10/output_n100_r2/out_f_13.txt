@@ -1,9 +1,0 @@
-Time: 11.191s elapsed time, 10.656s cpu time, 3.770s GC time
-Theorems: 
-
-
-
- ***** 
-Conjectures: f_13 (f_13 a b) c = f_13 (f_13 a b) b
-f_13 (f_13 a b) c = f_13 (f_13 a c) b
-f_13 (f_13 a b) c = f_13 (f_13 a c) c

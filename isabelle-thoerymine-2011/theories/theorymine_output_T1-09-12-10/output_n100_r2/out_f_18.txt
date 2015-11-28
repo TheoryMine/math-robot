@@ -1,9 +1,0 @@
-Time: 10.019s elapsed time, 9.392s cpu time, 2.509s GC time
-Theorems: 
-
-
-
- ***** 
-Conjectures: f_18 (f_18 a b) c = f_18 (f_18 a b) b
-f_18 (f_18 a b) c = f_18 (f_18 a c) b
-f_18 (f_18 a b) c = f_18 (f_18 a c) c

@@ -1,8 +1,0 @@
-Time: 107.140s elapsed time, 106.859s cpu time, 32.351s GC time
-Theorems: 
-term: f_5 a b = f_5 a a
-
-
-
- ***** 
-Conjectures: 

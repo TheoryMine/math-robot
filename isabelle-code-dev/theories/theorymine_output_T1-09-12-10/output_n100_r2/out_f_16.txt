@@ -1,9 +1,0 @@
-Time: 10.849s elapsed time, 10.216s cpu time, 3.284s GC time
-Theorems: 
-
-
-
- ***** 
-Conjectures: f_16 (f_16 a b) c = f_16 (f_16 a b) b
-f_16 (f_16 a b) c = f_16 (f_16 a c) b
-f_16 (f_16 a b) c = f_16 (f_16 a c) c

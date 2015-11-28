@@ -1,9 +1,0 @@
-Time: 5.528s elapsed time, 4.879s cpu time, 1.343s GC time
-Theorems: 
-term: f_47 a b = a
-term: f_47 (f_47 a b) c = a
-
-
-
- ***** 
-Conjectures: 
