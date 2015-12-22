@@ -1,8 +1,0 @@
-Time: 107.813s elapsed time, 107.538s cpu time, 33.172s GC time
-Theorems: 
-term: f_9 a b = f_9 a a
-
-
-
- ***** 
-Conjectures: 

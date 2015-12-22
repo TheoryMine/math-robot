@@ -1,9 +1,0 @@
-Time: 543.618s elapsed time, 542.125s cpu time, 168.524s GC time
-Theorems: 
-term: f_10 a (f_10 b c) = f_10 (f_10 a b) c
-term: f_10 (f_10 a b) c = f_10 a (f_10 b c)
-
-
-
- ***** 
-Conjectures: 

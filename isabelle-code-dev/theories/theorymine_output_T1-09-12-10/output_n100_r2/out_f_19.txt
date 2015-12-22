@@ -1,9 +1,0 @@
-Time: 7.650s elapsed time, 6.337s cpu time, 2.223s GC time
-Theorems: 
-term: f_19 (f_19 a b) c = f_19 a b
-term: f_19 (f_19 a b) c = f_19 a c
-
-
-
- ***** 
-Conjectures: 

@@ -1,8 +1,0 @@
-Time: 106.962s elapsed time, 106.688s cpu time, 32.369s GC time
-Theorems: 
-term: f_6 a b = f_6 a a
-
-
-
- ***** 
-Conjectures: 

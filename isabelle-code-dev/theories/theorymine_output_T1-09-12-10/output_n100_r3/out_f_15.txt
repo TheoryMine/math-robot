@@ -1,9 +1,0 @@
-Time: 6.804s elapsed time, 6.197s cpu time, 2.052s GC time
-Theorems: 
-term: f_15 (f_15 a b) c = f_15 a b
-term: f_15 (f_15 a b) c = f_15 a c
-
-
-
- ***** 
-Conjectures: 

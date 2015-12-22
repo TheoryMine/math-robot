@@ -1,9 +1,0 @@
-Time: 13.119s elapsed time, 12.486s cpu time, 3.906s GC time
-Theorems: 
-
-
-
- ***** 
-Conjectures: f_34 (f_34 a b) c = f_34 (f_34 a b) b
-f_34 (f_34 a b) c = f_34 (f_34 a c) b
-f_34 (f_34 a b) c = f_34 (f_34 a c) c

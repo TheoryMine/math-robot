@@ -1,9 +1,0 @@
-Time: 10.386s elapsed time, 9.820s cpu time, 3.003s GC time
-Theorems: 
-
-
-
- ***** 
-Conjectures: f_24 (f_24 a b) c = f_24 (f_24 a b) b
-f_24 (f_24 a b) c = f_24 (f_24 a c) b
-f_24 (f_24 a b) c = f_24 (f_24 a c) c

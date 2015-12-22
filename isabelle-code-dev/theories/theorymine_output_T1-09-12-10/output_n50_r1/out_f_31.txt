@@ -1,9 +1,0 @@
-Time: 13.581s elapsed time, 12.962s cpu time, 4.246s GC time
-Theorems: 
-
-
-
- ***** 
-Conjectures: f_31 (f_31 a b) c = f_31 (f_31 a b) b
-f_31 (f_31 a b) c = f_31 (f_31 a c) b
-f_31 (f_31 a b) c = f_31 (f_31 a c) c
