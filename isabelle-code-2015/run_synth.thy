@@ -53,59 +53,70 @@ ML {*
         |> snd
         |> Seq.take fun_generate_limit
       in
-        seq_fold (fn (n,x as ((s,ty,rty),eqs)) => fn (goodn,ignoredn,badfunn,funerrorl,prferrorl) =>
-                 let val result =
-                         (if (FastArgNeglect.syntactically_arg_neglecting_fundef eqs)
-                             orelse (FastArgNeglect.pattern_arg_neglecting_fundef eqs)
-                             orelse (List.all (not o has_non_type_const) eqs)
-                          then SynthTrivial
-                          else (let val (fnm, (err_opt, thy2)) =
-                                        TM_Data.add_new_function' (Fn.mk ("f_" ^ (Int.toString goodn))) x thy
-                                in if is_none err_opt then Synthesised(fnm,thy2)
-                                   else SynthBadFun(the err_opt, thy2) end))
-                          handle ERROR s => (SynthBug("ERROR exception: " ^ s))
-                               | Exn.Interrupt => raise Exn.Interrupt
-                               | _ => (SynthBug("Unkown error. "))
-                 in case result of
-                      Synthesised(fnm,thy2) =>
-                        ((tracing ("Syntheises good function (" ^ (Int.toString n) ^ "): " ^ (Fn.dest fnm) ^ " \ndef: " ^
-                                   (Pretty.string_of (pretty_synthd_func (Proof_Context.init_global thy2) x)));
-                          synth_and_save_thms_for_fun thy2 n fnm;
-                          (goodn + 1,ignoredn,badfunn,funerrorl,prferrorl))
-                        handle Exn.Interrupt => raise Exn.Interrupt
-                           | _ => (goodn,ignoredn,badfunn,funerrorl,n::prferrorl))
-                    | SynthBug(err_msg) => (tracing err_msg;  (goodn,ignoredn,badfunn,n::funerrorl,prferrorl))
-                    | SynthBadFun(err_msg,thy2) => (tracing err_msg;  (goodn,ignoredn,badfunn + 1,funerrorl,prferrorl))
-                    | SynthTrivial => (goodn,ignoredn + 1,badfunn,funerrorl,prferrorl)
-                 end)
-              (* take only 1 in n of the functions, offset by filteroffset *)
-              (filterseq_1_in_n (Unsynchronized.ref rem_n) mod_n funspec_seq)
-              (0,0,0,[],[])
+        seq_fold
+          (fn (n,x as ((s,ty,rty),eqs)) =>
+           fn (goodn,ignoredn,badfunn,funerrorl,prferrorl) =>
+           let val result =
+             (if (FastArgNeglect.syntactically_arg_neglecting_fundef eqs)
+                 orelse (FastArgNeglect.pattern_arg_neglecting_fundef eqs)
+                 orelse (List.all (not o has_non_type_const) eqs)
+              then SynthTrivial
+              else (let val (fnm, (err_opt, thy2)) =
+                            TM_Data.add_new_function'
+                              (Fn.mk ("f_" ^ (Int.toString goodn))) x thy
+                    in if is_none err_opt then Synthesised(fnm,thy2)
+                       else SynthBadFun(the err_opt, thy2) end))
+              handle ERROR s => (SynthBug("ERROR exception: " ^ s))
+                   | Exn.Interrupt => raise Exn.Interrupt
+                   | _ => (SynthBug("Unkown error. "))
+           in case result of
+                Synthesised(fnm,thy2) =>
+                  ((tracing ("Synthesised good function (" ^ (Int.toString n)
+                             ^ "): " ^ (Fn.dest fnm) ^ " \ndef: " ^
+                             (Pretty.string_of (pretty_synthd_func
+                               (Proof_Context.init_global thy2) x)));
+                    synth_and_save_thms_for_fun thy2 n fnm;
+                    (goodn + 1,ignoredn,badfunn,funerrorl,prferrorl))
+                  handle Exn.Interrupt => raise Exn.Interrupt
+                     | _ => (goodn,ignoredn,badfunn,funerrorl,n::prferrorl))
+              | SynthBug(err_msg) =>
+                (tracing err_msg;
+                  (goodn,ignoredn,badfunn,n::funerrorl,prferrorl))
+              | SynthBadFun(err_msg,thy2) =>
+                (tracing err_msg;
+                  (goodn,ignoredn,badfunn + 1,funerrorl,prferrorl))
+              | SynthTrivial =>
+                (goodn,ignoredn + 1,badfunn,funerrorl,prferrorl)
+           end)
+        (* take only 1 in n of the functions, offset by filteroffset *)
+        (filterseq_1_in_n (Unsynchronized.ref rem_n) mod_n funspec_seq)
+        (0,0,0,[],[])
       end;
 *}
 
 ML {*
-
 val (goodn,
      ignoredn,
      badfunn,
      funerrorl,
      prferrorl) =
   run_synth (Tn.mk "T_10")
-            (245,  (* skip first this many functions *)
-             2,    (* generate this many new functions *)
+            (447,  (* skip first this many functions *)
+             200,    (* generate this many new functions *)
              0, 1) (* Generate all functions (those indexes: 0 mod 1) *)
             1      (* one non-recursive argument for the generated functions *)
             @{theory};
+*}
 
+ML {*
 tracing ("Good Functions: " ^ (Int.toString goodn));
 tracing ("Ignored Functions: " ^ (Int.toString ignoredn));
 tracing ("Bad Functions: " ^ (Int.toString badfunn));
 tracing ("Fun Synth Errors: " ^ (Int.toString (length funerrorl)));
 tracing ("Proof Synth Errors: " ^ (Int.toString (length prferrorl)));
-
 tracing ("Synthesis completed.");
-
 *}
 
-end;
+display_mdata
+
+end
