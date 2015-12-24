@@ -31,15 +31,12 @@ fun synth_isacosy_level1_theorems_for_fun fname ctxt =
 
     val _ = ConstraintParams.print ctxt cparams;
 
-    (* set the top part of the term (conjectures about "=") *)
-    (* val thy_constraints = (Constraints.init ctxt cparams);
-    val top_term = Thm.term_of @{cpat "HOL.eq :: ?'a => ?'a => bool"};
-    val top_const = (Constant.mk (fst (Term.dest_Const top_term)));
-    *)
     val timer = Timer.startCPUTimer();
     val (cparams,ctxt) =
         SynthInterface.thm_synth
-          SynthInterface.rippling_prover
+          (SynthInterface.Prover (TM_Provers.ripple_prover
+              (RTechnEnv.map_then RippleLemCalc.induct_ripple_lemcalc)))
+          (* SynthInterface.rippling_prover *)
           SynthInterface.quickcheck
           (* SynthInterface.wave_rule_config *)
           SynthInterface.try_reprove_config

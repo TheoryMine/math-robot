@@ -24,6 +24,11 @@ isabelle build \
   -b RunSynth
 ```
 
+If there are problems, you can check the logs with something like this:
+```
+tail -n 1000 -f ~/.isabelle/Isabelle2015/heaps/polyml-5.5.2_x86-darwin/
+```
+
 Generated theories/theorems are outputed into a directory called `output`.
 
 To startup Isabelle locally with jEdit to make edits to theory mine (assuming you are happy with your HOL-IsaPlannerSession):
@@ -31,3 +36,4 @@ To startup Isabelle locally with jEdit to make edits to theory mine (assuming yo
 ```
 isabelle jedit -n -l HOL-IsaPlannerSession -d $ISAPLANNER_DIRECTORY -d .
 ```
+

@@ -8,6 +8,10 @@ fun synth_and_save_thms_for_fun thy fname =
     let val ctxt = Proof_Context.init_global thy
         val (cparams,ctxt) = synth_isacosy_level1_theorems_for_fun fname ctxt
         val [rec_tn] = Tn.NSet.list_of (TM_Data.Fun.Ctxt.rectns_of_fname ctxt fname);
+        val (lemmas,thms) = thms_of_synth_context ctxt;
+        val _ = tracing ("Synthesis complete for: "^(Fn.dest fname))
+        val _ = tracing ("Lemmas: "^(Int.toString (length lemmas)))
+        val _ = tracing ("Theorems: "^(Int.toString (length thms)))
         val _ = PHPSynthOutput.phpify_theory ctxt rec_tn fname;
     in () end
 *}
@@ -47,7 +51,7 @@ ML {*
                 nargs thy =
       let
         val funspec_seq =
-        (level1_function_seq_of_datatype @{context} dn  nargs)
+        (level1_function_seq_of_datatype @{context} dn nargs)
         |> number_seq
         |> Seq.chop skip_first_n
         |> snd
@@ -63,7 +67,7 @@ ML {*
               then SynthTrivial
               else (let val (fnm, (err_opt, thy2)) =
                             TM_Data.add_new_function'
-                              (Fn.mk ("f_" ^ (Int.toString goodn))) x thy
+                              (Fn.mk ("f_" ^ (Int.toString n))) x thy
                     in if is_none err_opt then Synthesised(fnm,thy2)
                        else SynthBadFun(the err_opt, thy2) end))
               (* handle ERROR s => (SynthBug("ERROR exception: " ^ s))
