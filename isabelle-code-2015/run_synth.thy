@@ -9,8 +9,8 @@ val (goodn,
      funerrorl,
      prferrorl) =
   run_synth (Tn.mk "T_10")
-            (20,  (* skip first this many functions *)
-             1,    (* generate this many new functions *)
+            (446,  (* skip first this many functions *)
+             10,   (* Synth theorems for this many new functions *)
              0, 1) (* Generate all functions (those indexes: 0 mod 1) *)
             1      (* one non-recursive argument for the generated functions *)
             @{theory};
