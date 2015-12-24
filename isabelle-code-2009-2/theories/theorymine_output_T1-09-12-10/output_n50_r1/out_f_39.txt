@@ -1,9 +1,0 @@
-Time: 7.820s elapsed time, 7.156s cpu time, 2.097s GC time
-Theorems: 
-term: f_39 (f_39 a b) c = f_39 a b
-term: f_39 (f_39 a b) c = f_39 a c
-
-
-
- ***** 
-Conjectures: 
