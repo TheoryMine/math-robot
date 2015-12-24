@@ -1,5 +1,7 @@
 # TheoryMine Math-Robot for Isabelle 2015
 
+This repository contains the TheoryMine code to synthesise new datatypes, functions, and theorems using [IsaPlanner and IsaCoSy](https://github.com/TheoryMine/IsaPlanner).
+
 
 ## Generate the background heap/session
 
