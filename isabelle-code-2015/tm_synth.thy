@@ -59,7 +59,7 @@ ML {*
       in
         seq_fold
           (fn (n,x as ((s,ty,rty),eqs)) =>
-           fn (goodn,ignoredn,badfunn,funerrorl,prferrorl) =>
+           fn (goodn,ignoredn,badfunn,funerrorl) =>
            let val result =
              (if (FastArgNeglect.syntactically_arg_neglecting_fundef eqs)
                  orelse (FastArgNeglect.pattern_arg_neglecting_fundef eqs)
@@ -80,22 +80,22 @@ ML {*
                              (Pretty.string_of (pretty_synthd_func
                                (Proof_Context.init_global thy2) x)));
                     synth_and_save_thms_for_fun thy2 fnm;
-                    (goodn + 1,ignoredn,badfunn,funerrorl,prferrorl))
+                    (goodn + 1,ignoredn,badfunn,funerrorl))
                   (* handle Exn.Interrupt => raise Exn.Interrupt
                      | _ => (goodn,ignoredn,badfunn,funerrorl,n::prferrorl) *)
                   )
               | SynthBug(err_msg) =>
                 (tracing err_msg;
-                  (goodn,ignoredn,badfunn,n::funerrorl,prferrorl))
+                  (goodn,ignoredn,badfunn,n::funerrorl))
               | SynthBadFun(err_msg,thy2) =>
                 (tracing err_msg;
-                  (goodn,ignoredn,badfunn + 1,funerrorl,prferrorl))
+                  (goodn,ignoredn,badfunn + 1,funerrorl))
               | SynthTrivial =>
-                (goodn,ignoredn + 1,badfunn,funerrorl,prferrorl)
+                (goodn,ignoredn + 1,badfunn,funerrorl)
            end)
         (* take only 1 in n of the functions, offset by filteroffset *)
         (filterseq_1_in_n (Unsynchronized.ref rem_n) mod_n funspec_seq)
-        (0,0,0,[],[])
+        (0,0,0,[])
       end;
 *}
 

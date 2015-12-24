@@ -22,9 +22,10 @@ if($argv[1] == "--help" or $argv[1] == "") {
   chdir($theory_dir);
   $local_ls = scandir(".");
   foreach($local_ls as $thry_name) {
-    if(preg_match('/^T_\\d+__f_\\d+\\.php$/',$thry_name)){
-      $filename = $n . '/' . $thry_name;
-      print("considering: $filename \n");
+    if(preg_match('/^(T_\\d+)__(f_\\d+)\\.php$/',$thry_name, $matches)){
+      $thy_name_prefix = $matches[1];
+      $filename = $thry_name;
+      print("considering: $filename ; theory = $thy_name_prefix\n");
       if(is_file($filename)) {
         print($filename . " : uploading... \n");
         //if($handle = fopen($thry_file, 'r'))
@@ -34,7 +35,7 @@ if($argv[1] == "--help" or $argv[1] == "") {
 
         $data = array(
           'act' => 'upload',
-          'thy_name_prefix' => $n,
+          'thy_name_prefix' => $thy_name_prefix,
           'theorems_file' => '@' . $filename,
           'pass' => $url_pass
         );
@@ -67,7 +68,7 @@ if($argv[1] == "--help" or $argv[1] == "") {
         print($error);
       }
     } else {
-      print("ignored name: " . $n . "\n");
+      print("ignored name: " . $thry_name . "\n");
     }
   }
 }
