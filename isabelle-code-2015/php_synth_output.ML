@@ -9,23 +9,23 @@ val php_fun : Proof.context -> Fn.NTab.name -> string
 val php_synth_thrms  : Proof.context -> string
 
 (* Main function for outputting php *)
-val phpify_theory : Proof.context -> Tn.name -> int -> Fn.name -> unit
+val phpify_theory : Proof.context -> Tn.name -> Fn.name -> unit
 
 end;
 
-structure DB_PHPSynthOutput = 
+structure DB_PHPSynthOutput =
 struct
-  
-  fun php_dtyp ctxt dtyp_nm = 
+
+  fun php_dtyp ctxt dtyp_nm =
         (StringReformater.datatype_to_FO_string ctxt dtyp_nm)
         |> (StringReformater.stringterm_to_html);
-  
-  fun php_fun ctxt fname = 
-      let 
+
+  fun php_fun ctxt fname =
+      let
         val (_,ty) = TM_Data.Fun.Ctxt.constinfo_of_fname ctxt fname
-        val pretty_eqs = Fn.NTab.get (TM_Data.Fun.Ctxt.get_fntab ctxt) fname 
-                    |> snd |> map TM_Data.termpair_of_defining_eq 
-                    |> map (fn (l,r) => 
+        val pretty_eqs = Fn.NTab.get (TM_Data.Fun.Ctxt.get_fntab ctxt) fname
+                    |> snd |> map TM_Data.termpair_of_defining_eq
+                    |> map (fn (l,r) =>
                     Pretty.block [
                       Pretty.str "<tr><td width=\"48%\" align=\"right\">\n  ",
                       Pretty.str (StringReformater.stringterm_to_html (StringReformater.term_to_FO_string l)),
@@ -33,22 +33,22 @@ struct
                       Pretty.str (StringReformater.stringterm_to_html (StringReformater.term_to_FO_string r)),
                       Pretty.str "\n</td></tr>"])
                     |> Pretty.chunks;
-      in 
+      in
         (Pretty.string_of o Pretty.chunks)
           [Pretty.str "<table>",
            pretty_eqs,
            Pretty.str "</table>\n"]
       end;
 
-fun php_synth_thrms ctxt = 
-    let 
+fun php_synth_thrms ctxt =
+    let
       fun phpify_prf prf = "'" ^ prf ^ "'";
-      fun phpify_thm thm = 
-          "'" ^ 
-          ((StringReformater.stringterm_to_html 
-            o StringReformater.term_to_FO_string 
+      fun phpify_thm thm =
+          "'" ^
+          ((StringReformater.stringterm_to_html
+            o StringReformater.term_to_FO_string
             o HOLogic.dest_Trueprop
-            o Trm.change_vars_to_fresh_frees 
+            o Trm.change_vars_to_fresh_frees
             o Thm.prop_of) thm)
            ^ "'";
     in
@@ -57,61 +57,34 @@ fun php_synth_thrms ctxt =
               ^ "array_push($theorems,\n"
               ^ "           array('proof' => "
               ^ (phpify_prf prf) ^",\n"
-              ^ "                 'statement' => " 
+              ^ "                 'statement' => "
               ^ (phpify_thm thm) ^ "));\n"
           ) (SynthOutput.get_thms (SynthOutput.Ctxt.get ctxt)) ""
     end;
 
-fun safe_isDir s = (OS.FileSys.isDir s) handle OS.SysErr _ => false;
-fun mkDirs s [] = true
-  | mkDirs s (d1::ds) =
-    if s = "" orelse d1 = "" then mkDirs (s ^ d1) ds
-    else
-    let val s2 = s ^ "/" ^ d1;
-        val _ = writeln ("mkdir: " ^ s2);
-        val _ = (safe_isDir s2 orelse (OS.FileSys.mkDir s2; true))
-        (* handle OS.SysErr _ => false *)
-    in mkDirs s2 ds end
-fun mkDir s = 
-    let val dirs = Library.space_explode "/" s
-    in mkDirs (OS.FileSys.getDir ()) dirs end;
-
-(* Open php-file and write stuff to it *)
-fun write_php_file subdir thy_file_loc phpified_thy_str = 
-    let
-      val path = "output/" ^ subdir;
-      val _ = writeln ("path: " ^ pwd() ^ "/" ^ path);
-      val _ = mkDir path; 
-      val loc = path ^ "/" ^ thy_file_loc;
-      val outs = TextIO.openOut loc
-    in
-      TextIO.output (outs, phpified_thy_str); 
-      TextIO.closeOut outs
-    end;
-
-(*   (OS.FileSys.fileId loc; false) handle 
-       OS.SysErr _ => *) 
-(* i : int = global number id of function, used for filename *) 
-fun phpify_theory ctxt dtyp_nm i fname = 
-    Print_Mode.setmp [] (fn () => 
+(*   (OS.FileSys.fileId loc; false) handle
+       OS.SysErr _ => *)
+(* i : int = global number id of function, used for filename *)
+fun phpify_theory ctxt dtyp_nm fname =
+    Print_Mode.setmp [] (fn () =>
     let val (_,ty) = TM_Data.Fun.Ctxt.constinfo_of_fname ctxt fname
         val typtntab = TM_Data.DType.Ctxt.get_typtntab ctxt
-        val all_tns = 
+        val all_tns =
              (Trm.atomic_typconsts_of_typ ty)
-               |> map_filter (Symtab.lookup typtntab) 
+               |> map_filter (Symtab.lookup typtntab)
                |> Tn.NSet.of_list |> Tn.NSet.list_of(* removed dups *)
         val selected_tns = filter (TM_Data.DType.Ctxt.is_tm_rec_tn ctxt) all_tns
-        val pretty = 
+        val pretty =
             Pretty.chunks [
-              Pretty.str "<?", 
+              Pretty.str "<?",
               Pretty.str "$theory = '<table><tr><td align=\"center\" width=\"100%\">",
-              Pretty.indent 2 (Pretty.chunks 
-                (Pretty.separate "<br>" (map (Pretty.str o php_dtyp ctxt) 
+              Pretty.indent 2 (Pretty.chunks
+                (Pretty.separate "<br>" (map (Pretty.str o php_dtyp ctxt)
                   selected_tns))),
               Pretty.str "<br>\n<br>",
-              Pretty.block [Pretty.str (StringReformater.stringterm_to_html (Fn.dest fname)), 
+              Pretty.block [Pretty.str (StringReformater.stringterm_to_html (Fn.dest fname)),
                             Pretty.str " : ",
-                            Pretty.str (StringReformater.stringterm_to_html 
+                            Pretty.str (StringReformater.stringterm_to_html
                               (StringReformater.string_of_typ ctxt ty))],
               Pretty.str "</td></tr></table>",
               Pretty.str (php_fun ctxt fname),
@@ -120,9 +93,10 @@ fun phpify_theory ctxt dtyp_nm i fname =
               Pretty.str (php_synth_thrms ctxt),
               Pretty.str "?>"
             ];
-    in 
-      write_php_file (Tn.dest dtyp_nm) ("/output-thy_"^(Int.toString i)^".php")
-                     (Pretty.string_of pretty)
+    in
+      File_Util.writeStringToFilepath
+        {path=("./output/"^(Tn.dest dtyp_nm)^"__"^(Fn.dest fname)^".php"),
+         str=(Pretty.string_of pretty)}
     end) ();
 
 end;

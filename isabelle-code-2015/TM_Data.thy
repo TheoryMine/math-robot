@@ -19,14 +19,16 @@ ML_file "tm_data.ML"
 (* convert datatypes and functions to ML serialisations *)
 ML_file "ml_serialisation.ML"
 ML_file "prettification.ML"
+
+ML_file "file_util.ML"
 ML_file "php_synth_output.ML"
+ML_file "synth_to_isathy.ML"
 text {* Pretty printing to create Isabelle theories as output *}
-ML_file "PrintToThy.ML"
- 
+
 ML {* (* set Toplevel.debug; *) *}
 
 ML {*
-val _ = Outer_Syntax.command 
+val _ = Outer_Syntax.command
           @{command_keyword "display_mdata"}
           "Display TheoryMine datatypes"
           (Scan.succeed (Toplevel.keep (TM_Data.DType.Ctxt.print o Toplevel.context_of)))
@@ -37,18 +39,18 @@ display_mdata
 (* general utlity stuff *)
 ML {*
   (* filter; take 1 in N *)
-  fun filter_1_in_n i n = 
+  fun filter_1_in_n i n =
       (i := (!i) - 1; filter (fn x => (i := (!i) + 1; Int.mod(!i,n) = 0)));
 
-  fun filterseq_1_in_n i n = 
+  fun filterseq_1_in_n i n =
       (i := (!i) - 1; Seq.filter (fn x => (i := (!i) + 1; Int.mod(!i,n) = 0)));
 *}
 
 (* Basic consts for synthesis of functions and theorems *)
 ML {*
-  val base_dtypes = [@{typ "nat"}, @{typ "bool"}];
+  val base_dtypes = [@{typ "Nat.nat"}, @{typ "HOL.bool"}];
   (* IMPROVE: lookup below from datatype package: not sure below are needed... *)
-  val base_consts = map (Term.dest_Const) 
+  val base_consts = map (Term.dest_Const)
                         [@{term "Suc"}, @{term "0 :: nat"}, @{term "True"}, @{term "False"}];
   val base_const_names = map fst base_consts;
 *}

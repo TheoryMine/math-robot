@@ -3,18 +3,18 @@ imports "ACFilterDtyp"
 begin
 
 -- "Add the natural numbers as a base type; and also booleans."
-setup {* TM_Data.add_base_type (Tn.mk "B", @{typ "bool"}); *}
-setup {* TM_Data.add_base_type (Tn.mk "N", @{typ "nat"}); *}
+setup {* TM_Data.add_base_type (Tn.mk "B", @{typ "HOL.bool"}); *}
+setup {* TM_Data.add_base_type (Tn.mk "N", @{typ "Nat.nat"}); *}
 ML {* TM_Data.DType.Ctxt.print @{context}; *}
 
 -- "Create basic datatypes, max 2 elements and max 2 constructors, filtering lists and nats"
-ML {* 
+ML {*
 val nset = Tn.NSet.of_list [Tn.mk "N", Tn.mk "B"];
-val all_possible_dtypes = 
+val all_possible_dtypes =
   Seq.list_of (DataGen.all_well_founded_rec_dtyps_upto nset {maxelems=2,maxconstrs=2});
-val (good_ds,bad_ds) = 
+val (good_ds,bad_ds) =
   fold
-    (fn d => fn (good_ds,bad_ds) => 
+    (fn d => fn (good_ds,bad_ds) =>
       if ACFilterDtyp.dtyp_is_ac_subsumed d then (good_ds,d::bad_ds)
       else (d::good_ds, bad_ds)
     )
@@ -27,7 +27,7 @@ writeln ("Number of bad (subsumed by Isabelle) datatypes: " ^ (Int.toString (len
 
 -- "add datatypes to theory"
 setup {*
-  fold 
+  fold
     (fn x => (TM_Data.add_new_datatype Tn.default_name x))
     good_ds
 *}

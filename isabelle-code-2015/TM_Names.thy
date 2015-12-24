@@ -4,7 +4,7 @@ begin
 
 -- "Name structures"
 ML{*
-(* TheoryMine Types: the data structures/types used in TheoryMine and the
+(* TheoryMine types: the data structures/types used in TheoryMine and the
    mechanisms to create new datatype *)
 signature TM_TYPES =
 sig

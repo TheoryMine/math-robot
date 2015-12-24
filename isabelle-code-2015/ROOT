@@ -1,6 +1,6 @@
 chapter TheoryMine
 
-session "HOL-TheoryMine" = HOL-IsaPlannerSession +
+session "HOL-TheoryMine" = "HOL-IsaPlannerSession" +
   description {* TheoryMine *}
   options [document = false, quick_and_dirty = true]
   theories

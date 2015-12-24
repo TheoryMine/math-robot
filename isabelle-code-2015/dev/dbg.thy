@@ -2,11 +2,11 @@ theory dbg
 imports tm_functions
 begin
 
-ML {* TM_Data.DType.Ctxt.print_dtyp @{context} (Tn.mk "T_1"); 
-@{cpat "op = :: ?'a => ?'a => bool"}
+ML {* TM_Data.DType.Ctxt.print_dtyp @{context} (Tn.mk "T_1");
+@{cpat "HOL.eq :: ?'a => ?'a => HOL.bool"}
 *}
 ML {*
- val simp_thms = the (#simps (Function.get_info @{context} @{term "f_1"})); 
+ val simp_thms = the (#simps (Function.get_info @{context} @{term "f_1"}));
 *}
 term "f_1"
 term "C_1"
@@ -19,13 +19,13 @@ val n = (Fn.mk "f_1");
 
       (* get info about the recursively defined function symbol *)
       (* assumes not mutualy recursive! i.e. only one recursive type name *)
-      val [(rec_typn,_)] = TM_Data.Fun.Thy.rectyps_of_fname thy n; 
+      val [(rec_typn,_)] = TM_Data.Fun.Thy.rectyps_of_fname thy n;
       val (fsym,fty) = TM_Data.Fun.Thy.constinfo_of_fname thy n;
       val thms = TM_Data.Fun.Thy.defthms_of_fname thy n;
 
       (* set constraint params; synth with func symbol and constructors of recursive arg *)
-      val cparams = 
-          ConstraintParams.empty 
+      val cparams =
+          ConstraintParams.empty
             |> ThyConstraintParams.add_eq ctxt
             |> ((ConstraintParams.add_consts o map Term.dest_Const) [Const (fsym,fty)])
             |> ConstraintParams.add_thms ctxt thms
@@ -37,7 +37,7 @@ val n = (Fn.mk "f_1");
       val thy_constraints = (Constraints.init ctxt cparams);
       val _ = Constraints.print ctxt thy_constraints;
 
-      val top_term = Thm.term_of @{cpat "op = :: ?'a => ?'a => bool"};
+      val top_term = Thm.term_of @{cpat "HOL.eq :: ?'a => ?'a => HOL.bool"};
       val top_const = (Constant.mk (fst (Term.dest_Const top_term)));
 
       val prepared_thy = (* prepare the proof tool(s) *)
@@ -48,7 +48,7 @@ val n = (Fn.mk "f_1");
 
 -- "Synthesise equality conjectures"
 ML {*
-val ((thy_constraints',thy'),(conjs,thms)) = ConstrSynthesis.synthesise_terms 
+val ((thy_constraints',thy'),(conjs,thms)) = ConstrSynthesis.synthesise_terms
        top_const (* top constant *)
        ConstrSynthesis.VarAllowed.is_hole_in_lhs (* where are free vars allowed *)
        (4,12) (* min and max size of synthesised terms *)
