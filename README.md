@@ -2,11 +2,17 @@
 
 This repository contains the TheoryMine code to synthesise new datatypes, functions, and theorems using [IsaPlanner and IsaCoSy](https://github.com/TheoryMine/IsaPlanner).
 
+## Assumed setup
+
+ * Isabelle installed in: `/usr/local/Isabelle2015`
+ * isaplib installed in: `/usr/local/Isabelle2015/contrib/isaplib`
+ * IsaPlanner installed in: `/usr/local/Isabelle2015/contrib/IsaPlanner`
+
 
 ## Generate the background heap/session
 
 ```
-export ISAPLANNER_DIRECTORY=../../IsaPlanner/
+export ISAPLANNER_DIRECTORY=/usr/local/Isabelle2015/contrib/IsaPlanner
 
 isabelle build \
   -d $ISAPLANNER_DIRECTORY \
@@ -17,7 +23,7 @@ isabelle build \
 
 ## Run synthesis:
 
-From the command line:
+From this directory (`math-robot`):
  1. Edit the run_synth.thy file.
  2. Run this command:
 
