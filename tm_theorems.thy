@@ -35,7 +35,8 @@ fun synth_isacosy_level1_theorems_for_fun fname ctxt =
     val (cparams,ctxt) =
         SynthInterface.thm_synth
           (SynthInterface.Prover (TM_Provers.ripple_prover
-              (RTechnEnv.map_then RippleLemCalc.induct_ripple_lemcalc)))
+              (RTechnEnv.map_then (*RippleLemCalc.induct_ripple_lemcalc *)
+                                  RippleMultFertLemCalc.induct_ripple_multfert_lemcalc)))
           (* SynthInterface.rippling_prover *)
           SynthInterface.quickcheck
           (* SynthInterface.wave_rule_config *)
@@ -49,7 +50,7 @@ fun synth_isacosy_level1_theorems_for_fun fname ctxt =
 (*
         SynthInterface.thm_synth
           (SynthInterface.Prover (TM_Provers.ripple_prover
-              (RTechnEnv.map_then RippleLemCalc.induct_ripple_lemcalc)))
+              (RTechnEnv.map_then RippleLemCalc.induct_ripple_lemcalc (*RippleMultFertLemCalc.induct_ripple_multfert_lemcalc*))))
           (SynthInterface.quickcheck)
           (SynthInterface.wave_rule_config)
           SynthInterface.var_allowed_in_lhs

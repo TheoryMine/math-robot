@@ -59,9 +59,28 @@ structure DB_TM_Provers
         SOME (TimeLimit.timeLimit (Time.fromSeconds timeOut) f a)
         handle TimeLimit.TimeOut => NONE
              | failed_proof_exp _ => NONE;
-
+             
+(* depth_fs with max depth bound (for use in iterative). 
+   We can move this function to isabelle/contrib/isaplib/search/ *)
+  fun depth_fs_limited maxd gf xf st = 
+      let 
+        fun dfs_aux [] = NONE
+          | dfs_aux ((d,hq) :: tq) = 
+            case Seq.pull hq of 
+              NONE => dfs_aux tq
+            | SOME (h, hs) => 
+              if (gf h) then 
+                SOME (h, Seq.empty)
+              else if d < maxd then
+                dfs_aux ((d+1,xf h)::(d,hs)::tq)
+              else
+                dfs_aux ((d,hs)::tq)
+      in
+        Seq.make ( fn () => dfs_aux [(0,Seq.single st)] )
+      end;
+           
   (* induction and rippling prover for use with IsaCoSy.
-     Time limitted to 5 seconds. *)
+     Time limitted to 10 seconds. *)
   fun ripple_prover rtech ctxt conjecture =
       let
         val _ = Pretty.writeln (Pretty.str "Top level Synth Conjecture: ");
@@ -82,17 +101,18 @@ structure DB_TM_Provers
             (RState.init_from_pp pp)
               |> RState.set_goalnames [init_goal]
               |> RState.set_rtechn (SOME rtech)
-              |> GSearch.depth_fs (fn rst => is_none (RState.get_rtechn rst)
-                                   andalso RstPP.solved_all_chk rst)
-                                  RState.unfold;
+              |> (*GSearch.depth_fs*) 
+                 depth_fs_limited 80 (fn rst => is_none (RState.get_rtechn rst) (*MOD*)
+                                                andalso RstPP.solved_all_chk rst)
+                                     RState.unfold;
 
-         val time_limit_in_seconds = 5;
+         val time_limit_in_seconds = 10;
          val proof_thm_opt = try_under_timelimit time_limit_in_seconds
                (fn final_rsts => case Seq.pull final_rsts
                  of NONE => raise failed_proof_exp ()
                   | SOME (rst,_) => ("induction and rippling",
                                      RstPP.result_thm rst g))
-               final_rsts;
+                final_rsts;
 
          val lemmas =
              map (fn (_, (thm, _)) => ("induction and rippling", thm))
@@ -117,7 +137,7 @@ structure DB_TM_Provers
       (RState.init_from_pp pp)
         |> RState.set_goalnames [init_goal]
         |> RState.set_rtechn (SOME rtech)
-        |> GSearch.depth_fs (fn rst => is_none (RState.get_rtechn rst)
+        |> GSearch.breadth_fs (fn rst => is_none (RState.get_rtechn rst)
                              andalso RstPP.solved_all_chk rst) RState.unfold
         |> Seq.map (fn rst => RstPP.result_thm rst g)
         |> Seq.map (fn th2 => th2 RS th) (* apply resulting theorem *)
@@ -126,7 +146,8 @@ structure DB_TM_Provers
   (* Make rippling Isar method *)
   fun ripple_meth ctxt =
       Method.METHOD (K (ripple_tac ctxt (RTechnEnv.map_then
-        RippleLemCalc.induct_ripple_lemcalc)));
+         (*RippleLemCalc.induct_ripple_lemcalc*)
+          RippleMultFertLemCalc.induct_ripple_multfert_lemcalc)));
   val ripple_meth_text = Method.Basic ripple_meth;
 
 (*
