@@ -30,11 +30,12 @@ fun synth_isacosy_level1_theorems_for_fun fname ctxt =
          (*  |> ThyConstraintParams.add_datatype ctxt rec_typn; *)
 
     val _ = ConstraintParams.print ctxt cparams;
+    val fun_name = fst (TM_Data.Fun.Ctxt.constinfo_of_fname ctxt fname)
 
     val timer = Timer.startCPUTimer();
     val (cparams,ctxt) =
         SynthInterface.thm_synth
-          (SynthInterface.Prover (TM_Provers.ripple_prover
+          (SynthInterface.Prover (TM_Provers.ripple_prover fun_name
               (RTechnEnv.map_then (*RippleLemCalc.induct_ripple_lemcalc *)
                                   RippleMultFertLemCalc.induct_ripple_multfert_lemcalc)))
           (* SynthInterface.rippling_prover *)

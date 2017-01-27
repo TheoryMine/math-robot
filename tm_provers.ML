@@ -2,7 +2,7 @@ signature TM_PROVERS =
 sig
   exception failed_proof_exp of unit;
 
-  val ripple_prover : RState.rtechn -> Proof.context -> term
+  val ripple_prover : string -> RState.rtechn -> Proof.context -> term
       -> (string * Thm.thm) option (* proof description and thm, if proved,
                                       else NONE *)
           * (string * Thm.thm) list; (* lemmas found during proof *)
@@ -81,13 +81,13 @@ structure DB_TM_Provers
            
   (* induction and rippling prover for use with IsaCoSy.
      Time limitted to 10 seconds. *)
-  fun ripple_prover rtech ctxt conjecture =
+  fun ripple_prover fname rtech ctxt conjecture =
       let
         val _ = Pretty.writeln (Pretty.str "Top level Synth Conjecture: ");
         val _ = conjecture
             |> Proof_Display.pp_term (Proof_Context.theory_of ctxt)
             |> Pretty.writeln;
-        val g = "g"
+        val g = "g1"
         (* configure prover with dtype theorems *)
         val thms = ripple_thms_of_term ctxt conjecture;
 
@@ -104,13 +104,16 @@ structure DB_TM_Provers
               |> (*GSearch.depth_fs*) 
                  depth_fs_limited 80 (fn rst => is_none (RState.get_rtechn rst) (*MOD*)
                                                 andalso RstPP.solved_all_chk rst)
-                                     RState.unfold;
-
+                                     RState.unfold; 
+                                     
+         fun pretty_nlprf rst = NLProof.nlproof_init rst fname
+         fun nlprf rst = Pretty.str_of (NLProof.pretty_nlp ctxt fname (pretty_nlprf rst))
+         
          val time_limit_in_seconds = 10;
          val proof_thm_opt = try_under_timelimit time_limit_in_seconds
                (fn final_rsts => case Seq.pull final_rsts
                  of NONE => raise failed_proof_exp ()
-                  | SOME (rst,_) => ("induction and rippling",
+                  | SOME (rst,_) => (nlprf rst,
                                      RstPP.result_thm rst g))
                 final_rsts;
 
