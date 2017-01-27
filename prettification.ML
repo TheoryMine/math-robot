@@ -108,7 +108,7 @@ fun convert_to_tuples [] = []
   | convert_to_tuples (x  ::  "_"  ::t ) =
       let
         val (n, char_list) = take_number t;
-        val SOME n' = Int.fromString n;
+        val SOME n' = case Int.fromString n of NONE => SOME 0 | x => x;
       in
         (*if (x = var_symbol) then
           (x ^ "_", SOME (var_change n')) :: (convert_to_tuples char_list) *)

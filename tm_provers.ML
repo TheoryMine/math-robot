@@ -2,7 +2,8 @@ signature TM_PROVERS =
 sig
   exception failed_proof_exp of unit;
 
-  val ripple_prover : string -> RState.rtechn -> Proof.context -> term
+  val ripple_prover : (RState.T -> string)  (* readable proof generator, takes a rst and a fn name*)
+      -> RState.rtechn -> Proof.context -> term
       -> (string * Thm.thm) option (* proof description and thm, if proved,
                                       else NONE *)
           * (string * Thm.thm) list; (* lemmas found during proof *)
@@ -81,13 +82,13 @@ structure DB_TM_Provers
            
   (* induction and rippling prover for use with IsaCoSy.
      Time limitted to 10 seconds. *)
-  fun ripple_prover fname rtech ctxt conjecture =
+  fun ripple_prover readable_prf_generator rtech ctxt conjecture =
       let
         val _ = Pretty.writeln (Pretty.str "Top level Synth Conjecture: ");
         val _ = conjecture
             |> Proof_Display.pp_term (Proof_Context.theory_of ctxt)
             |> Pretty.writeln;
-        val g = "g1"
+        val g = "g"
         (* configure prover with dtype theorems *)
         val thms = ripple_thms_of_term ctxt conjecture;
 
@@ -102,18 +103,15 @@ structure DB_TM_Provers
               |> RState.set_goalnames [init_goal]
               |> RState.set_rtechn (SOME rtech)
               |> (*GSearch.depth_fs*) 
-                 depth_fs_limited 80 (fn rst => is_none (RState.get_rtechn rst) (*MOD*)
+                 depth_fs_limited 80 (fn rst => is_none (RState.get_rtechn rst)
                                                 andalso RstPP.solved_all_chk rst)
                                      RState.unfold; 
-                                     
-         fun pretty_nlprf rst = NLProof.nlproof_init rst fname
-         fun nlprf rst = Pretty.str_of (NLProof.pretty_nlp ctxt fname (pretty_nlprf rst))
          
          val time_limit_in_seconds = 10;
          val proof_thm_opt = try_under_timelimit time_limit_in_seconds
                (fn final_rsts => case Seq.pull final_rsts
                  of NONE => raise failed_proof_exp ()
-                  | SOME (rst,_) => (nlprf rst,
+                  | SOME (rst,_) => (readable_prf_generator rst,
                                      RstPP.result_thm rst g))
                 final_rsts;
 
@@ -126,7 +124,7 @@ structure DB_TM_Provers
   fun ripple_tac ctxt rtech th =
       let
         val conjecture = Logic.get_goal (Thm.prop_of th) 1;
-        val g = "g"
+        val g = "g1"
         (* configure prover with dtype theorems *)
         val thms = ripple_thms_of_term ctxt conjecture;
 

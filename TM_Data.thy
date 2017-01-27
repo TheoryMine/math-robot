@@ -16,9 +16,14 @@ text {* This code defines TheoryMine's representation of datatypes
   name-tables. This is to support the programatic creation of new
   names for datatypes and constructors. *}
 ML_file "tm_data.ML"
+
 (* convert datatypes and functions to ML serialisations *)
 ML_file "ml_serialisation.ML"
+
 ML_file "prettification.ML"
+ML_file "list_string_aux.ML"
+ML_file "pretty_latexification.ML"
+ML_file "nlproof.ML"
 
 ML_file "file_util.ML"
 ML_file "php_synth_output.ML"

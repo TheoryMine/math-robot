@@ -31,11 +31,14 @@ fun synth_isacosy_level1_theorems_for_fun fname ctxt =
 
     val _ = ConstraintParams.print ctxt cparams;
     val fun_name = fst (TM_Data.Fun.Ctxt.constinfo_of_fname ctxt fname)
-
+    
+     fun nlprf rst = Pretty.string_of (NLProof.pretty_nlp ctxt fun_name 
+                                         (NLProof.nlproof_init rst fun_name))
+         
     val timer = Timer.startCPUTimer();
     val (cparams,ctxt) =
         SynthInterface.thm_synth
-          (SynthInterface.Prover (TM_Provers.ripple_prover fun_name
+          (SynthInterface.Prover (TM_Provers.ripple_prover nlprf
               (RTechnEnv.map_then (*RippleLemCalc.induct_ripple_lemcalc *)
                                   RippleMultFertLemCalc.induct_ripple_multfert_lemcalc)))
           (* SynthInterface.rippling_prover *)
