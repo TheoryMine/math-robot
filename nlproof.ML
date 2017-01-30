@@ -24,7 +24,7 @@ sig
   val parse_tree : HTraceCInfo.tree -> HTraceCInfo.tree
   (* print and prettify *)
   val pretty_fix_nl : Proof.context -> string * typ -> Pretty.T
-  val term_to_FO_string : term -> string
+  val term_to_FO_string_latex : term -> string
 
   val pretty_nlp : Proof.context -> string -> nl_proof_tree list -> Pretty.T
   val print : Proof.context -> string -> nl_proof_tree list -> unit
@@ -257,7 +257,7 @@ fun tuples_to_string_latex [] = ""
   | tuples_to_string_latex ((h,SOME [])::t) =
      h ^ (tuples_to_string_latex t)
   | tuples_to_string_latex ((h,SOME (x as _::_))::t) =
-     h ^ "_{" ^ (String.concat x) ^ "}" ^ (tuples_to_string_latex t);
+     h ^ "_{" ^ StringReformater.greek_html_to_latex (String.concat x) ^ "}" ^ (tuples_to_string_latex t);
 
 fun fix_const_name c =
 let
@@ -299,24 +299,30 @@ fun fix_vars_and_consts_in_term (t:term) =
 
 (* Convert a term to its first-order string representation, including changing variables like booln to b_{n}
    Removes abstraction! *)
-fun term_to_FO_string (t:term) =
+fun term_to_FO_string_latex (t:term) =
   let
     val (h,args) = Term.strip_comb t;
-    val sargs = map (term_to_FO_string) args;
+    val sargs = map (term_to_FO_string_latex) args;
   in
     case t of
     (Const ("HOL.Not",_)) $ (Const ("HOL.eq",_) $ t1 $ t2) =>
-      if term_to_FO_string t1 < term_to_FO_string t2 then
-        term_to_FO_string t1 ^ " \\neq " ^ term_to_FO_string t2
+      if term_to_FO_string_latex t1 < term_to_FO_string_latex t2 then
+        term_to_FO_string_latex t1 ^ " \\neq " ^ term_to_FO_string_latex t2
       else
-        term_to_FO_string t2 ^ " \\neq " ^ term_to_FO_string t1
+        term_to_FO_string_latex t2 ^ " \\neq " ^ term_to_FO_string_latex t1
+        
+    | (Const ("Not",_)) $ (Const ("eq",_) $ t1 $ t2) =>
+      if term_to_FO_string_latex t1 < term_to_FO_string_latex t2 then
+        term_to_FO_string_latex t1 ^ " \\neq " ^ term_to_FO_string_latex t2
+      else
+        term_to_FO_string_latex t2 ^ " \\neq " ^ term_to_FO_string_latex t1
         (*
-    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ t))))))) => "("^term_to_FO_string t ^ " + 6)"
-    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ t)))))) => "("^term_to_FO_string t ^ " + 5)"
-    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ t))))) => "("^term_to_FO_string t ^ " + 4)"
-    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ t)))) => "("^term_to_FO_string t ^ " + 3)"
-    | (Const ("Nat.Suc",_) $ (Const ("Nat.Suc",_) $ t)) => "("^term_to_FO_string t ^ " + 2)"
-    | (Const ("Nat.Suc",_)) $ t => "("^term_to_FO_string t ^ " + 1)"
+    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ t))))))) => "("^term_to_FO_string_latex t ^ " + 6)"
+    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ t)))))) => "("^term_to_FO_string_latex t ^ " + 5)"
+    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ ((Const ("Nat.Suc",_)) $ t))))) => "("^term_to_FO_string_latex t ^ " + 4)"
+    | (Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_) $ ((Const ("Nat.Suc",_)) $ t)))) => "("^term_to_FO_string_latex t ^ " + 3)"
+    | (Const ("Nat.Suc",_) $ (Const ("Nat.Suc",_) $ t)) => "("^term_to_FO_string_latex t ^ " + 2)"
+    | (Const ("Nat.Suc",_)) $ t => "("^term_to_FO_string_latex t ^ " + 1)"
     *)
     | _ =>
       if null args then
@@ -333,9 +339,13 @@ fun term_to_FO_string (t:term) =
            (Const ("HOL.eq",_), [s1,s2]) => s1 ^ " = " ^ s2
          | (Const ("eq",_), [s1,s2]) => s1 ^ " = " ^ s2
          | (Const ("Set.member",_), [s1,s2]) => s1 ^ " \\in " ^ s2
+         | (Const ("member",_), [s1,s2]) => s1 ^ " \\in " ^ s2
          | (Const ("Nat.Suc",_), [s]) => "{\\tt{Suc}}("^s^")"
-         | (Const ("HOL.Trueprop",_), [s]) => s
+         | (Const ("Suc",_), [s]) => "{\\tt{Suc}}("^s^")"
          | (Const ("HOL.Not",_), [s]) => "\<not>" ^ s
+         | (Const ("Not",_), [s]) => "\<not>" ^ s
+         | (Const ("HOL.Trueprop",_), [s]) => s
+         | (Const ("Trueprop",_), [s]) => s
          | (Const (c,_), _) =>
              let
                val cc = List.last (space_explode "." c)
@@ -344,9 +354,9 @@ fun term_to_FO_string (t:term) =
                if "f" = n orelse "C" = n then
                   (fix_const_name cc) ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
                else
-                  (term_to_FO_string h) ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
+                  (term_to_FO_string_latex h) ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
              end
-         | _ => (term_to_FO_string h)
+         | _ => (term_to_FO_string_latex h)
                   ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
         )
   end;
@@ -355,7 +365,7 @@ fun term_to_FO_string (t:term) =
 fun term_to_FO_string_align_eqs (t:term) =
   let
     val (h,args) = Term.strip_comb t;
-    val sargs = map (term_to_FO_string) args;
+    val sargs = map (term_to_FO_string_latex) args;
   in
     if null args then
       (case h of
@@ -378,9 +388,9 @@ fun term_to_FO_string_align_eqs (t:term) =
            (fix_const_name c)
                 ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
          else
-           (term_to_FO_string h)
+           (term_to_FO_string_latex h)
                 ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
-       | _ => (term_to_FO_string h)
+       | _ => (term_to_FO_string_latex h)
                 ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
       )
   end;
@@ -430,7 +440,7 @@ let
 in
   if null mth orelse null gs
   then NONE
-  else SOME (hd gs, hd mth)
+  else (writeln (fst (string_of_meth_and_result (hd mth))); SOME (hd gs, hd mth))
 end
 
 fun get_goals_and_meths_rippling full_prf (TTree (D,ch)) =
@@ -439,19 +449,19 @@ fun get_goals_and_meths_rippling full_prf (TTree (D,ch)) =
   | SOME X => X :: List.concat (map (get_goals_and_meths_rippling full_prf) ch)
 
 fun reference_the_method mth =
-  let
-    fun last_two [] = []
-      | last_two [h] = [h]
-      | last_two [h1,h2] = [h1,".",h2]
-      | last_two (_::t) = last_two t
-    val s = fst (string_of_meth_and_result mth)
-    val x = String.concat (last_two (space_explode "." s))
-    val rf = if String.isSubstring "lem_" s
-             then "\\mbox{\\color{gray}{by Lemma \\ref{" ^ find_lem_name_in_string s ^ "}}}"
-             else if s = "" then "\\mbox{\\color{gray}{trivial}}"
-             else "\\mbox{\\color{gray}{by (\\ref{" ^ x ^ "})}}"
-  in rf
-  end
+let
+  fun last_two [] = []
+    | last_two [h] = [h]
+    | last_two [h1,h2] = [h1,".",h2]
+    | last_two (_::t) = last_two t
+  val s = fst (string_of_meth_and_result mth)
+  val x = String.concat (last_two (space_explode "." s))
+in 
+  if String.isSubstring "lem_" s
+  then "\\mbox{\\color{gray}{by Lemma \\ref{" ^ find_lem_name_in_string s ^ "}}}"
+  else if s = "" then "\\mbox{\\color{gray}{trivial}}"
+  else "\\mbox{\\color{gray}{by (\\ref{" ^ s ^ "})}}"
+end
 
 fun string_results_from_method mth = snd (string_of_meth_and_result mth)
 
@@ -461,7 +471,7 @@ let
   val trm = (HOLogic.dest_Trueprop o (get_ndname_ctrm full_prf)) g
 in
   writeln ("Goal name: " ^ g)
-  :: writeln ("Term: " ^ (term_to_FO_string trm))
+  :: writeln ("Term: " ^ (term_to_FO_string_latex trm))
   :: writeln ( "Method: " ^ reference_the_method mth )
   :: writeln ("Results: [" ^ commas (string_results_from_method mth) ^ "]")
   :: writeln ("------ ")
@@ -501,10 +511,10 @@ fun Uchain_from_gs_rec full_prf ((g1,m1)::(g2,m2)::t) =
 
 and map_eq_align_tabs [] = []
   | map_eq_align_tabs [(x,m)] =
-    [String.concat ["&= ", ( term_to_FO_string) x,
+    [String.concat ["&= ", ( term_to_FO_string_latex) x,
                     " &", reference_the_method m]]
   | map_eq_align_tabs ((x,m)::t) =
-    String.concat ["&= ", ( term_to_FO_string) x,
+    String.concat ["&= ", ( term_to_FO_string_latex) x,
                    " &", reference_the_method m, "\\\\"]::map_eq_align_tabs t
 
 and Uchain_from_gL _ [] = []
@@ -514,7 +524,7 @@ and Uchain_from_gL _ [] = []
     val (a,_) = pair_from_eq_term t
     val xL = Uchain_from_gs_rec full_prf ((g,m)::L)
   in
-    term_to_FO_string a :: map_eq_align_tabs xL
+    term_to_FO_string_latex a :: map_eq_align_tabs xL
   end
 
 fun make_Uchain_align full_prf tL =
@@ -570,7 +580,7 @@ in
        make_Uchain_align full_prf ((g,m)::L)]
   | ((g,m)::L)::T =>
       [Pretty.str "First, notice that the following is true: ", (*\\begin{align*}\\label{U1}",
-       Pretty.str ((term_to_FO_string o HOLogic.dest_Trueprop o (get_ndname_ctrm full_prf)) g),
+       Pretty.str ((term_to_FO_string_latex o HOLogic.dest_Trueprop o (get_ndname_ctrm full_prf)) g),
        Pretty.str "\\end{align*}",
        Pretty.str "as follows: ",*)
        make_Uchain_align_ref g full_prf ((g,m)::L)]
@@ -596,7 +606,7 @@ in
 end
 
 fun uncurried_string_of_named_goal prf =
-  term_to_FO_string o HOLogic.dest_Trueprop o (get_ndname_ctrm prf)
+  term_to_FO_string_latex o HOLogic.dest_Trueprop o (get_ndname_ctrm prf)
 
 fun pretty_tfix_nl thry (n,srt) =
   let val t = Pretty.string_of (Trm.pretty_sort thry srt)
@@ -885,7 +895,7 @@ let
 
   fun prettify_vars_and_term (vs,trm) =
     Pretty.block [Pretty.str "\\item ", qvars vs,
-                  Pretty.str "$", Pretty.str (term_to_FO_string trm), Pretty.str "$"]
+                  Pretty.str "$", Pretty.str (term_to_FO_string_latex trm), Pretty.str "$"]
 
   val all_pretty = map prettify_vars_and_term p*)
 
@@ -919,10 +929,10 @@ let
                   Pretty.str "$"]
 
   val distinct_thmN = tname^".distinct"
-  val distinct_terms = map (fix_vars_and_consts_in_term o Thm.prop_of) (Sledgehammer_Util.thms_of_name ctxt distinct_thmN)
+  val distinct_terms = map (fix_vars_and_consts_in_term o HOLogic.dest_Trueprop o Trm.change_vars_to_fresh_frees o Thm.prop_of) (Sledgehammer_Util.thms_of_name ctxt distinct_thmN)
   fun treat_vars s = "$"^ fix_vars_name s^"$"
-  val pretty_math_terms = map Pretty.str (remove_duplicates (map (string_latex_mathmode o remove_schematic o term_to_FO_string) distinct_terms))
-  fun math_terms t = Pretty.str ((string_latex_mathmode o (remove_schematic o term_to_FO_string)) t)
+  val pretty_math_terms = map Pretty.str (remove_duplicates (map (string_latex_mathmode o remove_schematic o term_to_FO_string_latex) distinct_terms))
+  fun math_terms t = Pretty.str ((string_latex_mathmode o (remove_schematic o term_to_FO_string_latex)) t)
   val pretty_distinct_thm =
     Pretty.block (Pretty.str ("\\item for every " ^ (commas_and (map treat_vars (vars_from_name ctxt distinct_thmN))) ^ ", we have ")
                   :: pretty_commas_and pretty_math_terms)
@@ -1119,6 +1129,7 @@ fun nlproof_tree_mk full_prf (TTree (D,ch)) =
 fun nlproof_init rst fname =
   let
     val prf = PPlan.get_prf (RState.get_pplan rst)
+    val _ = Pretty.writeln (APrf.pretty prf)
     val prf_is_complete = null (RState.get_goalnames rst)
     val fs = if prf_is_complete then fst else
               (fn x => case (snd x) of NONE => []

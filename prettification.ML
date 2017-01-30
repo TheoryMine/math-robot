@@ -48,9 +48,10 @@ end;
 structure GreekNChange = BaseNameChangeFun(
   type char = string
   val compare = curry String.compare
-  val alphabet = ["&alpha;",	"&beta;","&gamma;","&delta;","&epsilon;","&zeta;","&eta;","&theta;","&iota;",
-  "&kappa;","&lambda;","&mu;","&nu;","&xi;","&omicron;","&pi;","&rho;","&sigmaf;","&sigma;",
-  "&tau;","&upsilon;","&phi;","&chi;","&psi;","&omega;","&thetasym;","&upsih;","&piv;" ]
+  val alphabet_raw = ["alpha",	"beta","gamma","delta","epsilon","zeta","eta","theta","iota",
+  "kappa","lambda","mu","nu","xi","omicron","pi","rho","sigmaf","sigma",
+  "tau","upsilon","phi","chi","psi","omega","thetasym","upsih","piv" ]
+  val alphabet = map (fn s => "&" ^ s ^ ";") alphabet_raw
 );
 
 
@@ -76,6 +77,15 @@ val function_symbol = "f";
 val function_change = GreekNChange.chrlist_of_int;
 val constr_symbol = "C";
 val constr_change = AlphabetNChange.chrlist_of_int;
+
+fun greek_html_to_latex s = 
+let 
+  fun remove_last_sc [] = [] | remove_last_sc [";"] = [] | remove_last_sc (h::t) = h :: remove_last_sc t
+in
+  case map String.str (String.explode s) of 
+    ("&" :: ss ) => "\\" ^ String.concat (remove_last_sc ss)
+    | _ => s
+end
 
 val var_symbol = "x";
 
