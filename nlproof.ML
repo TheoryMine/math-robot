@@ -186,7 +186,7 @@ and restructure_tree_rec fnm tg id i (Tree ((_,rst),ch)) =
       val D = {top_goal = tg, fname = fnm, node_id = id_upd, goals = ngs, rstate = rst'}
 
       val xtg = if String.isSubstring RstName.induct_ripple_lemcalc_str (DescripCInfo.string_of_rst rst')
-                then (writeln"oi!";find_lem_name_in_string (DescripCInfo.string_of_rst rst'))
+                then find_lem_name_in_string (DescripCInfo.string_of_rst rst')
                 else tg
     in
         TTree (D, map_numbering 0 (restructure_tree_rec fnm xtg id_upd) (tl rch))
@@ -297,6 +297,8 @@ fun fix_vars_and_consts_in_term (t:term) =
   | (Const (c,tt)) => (Const (fix_const_name c,tt))
   | t => t
 
+fun remove_schematic x = String.explode x |> filter (not o (equal "?") o str) |> String.implode
+
 (* Convert a term to its first-order string representation, including changing variables like booln to b_{n}
    Removes abstraction! *)
 fun term_to_FO_string_latex (t:term) =
@@ -356,8 +358,10 @@ fun term_to_FO_string_latex (t:term) =
                else
                   (term_to_FO_string_latex h) ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
              end
-         | _ => (term_to_FO_string_latex h)
-                  ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")")
+         | _ => (if String.isPrefix "?" (term_to_FO_string_latex h) then 
+                   fix_vars_name (term_to_FO_string_latex h) ^ "\\footnote{\\, for some specific $"^ fix_vars_name (term_to_FO_string_latex h)^"$. Its value is implicit or irrelevant.}"
+                 else (term_to_FO_string_latex h) 
+                      ^ (if null sargs then "" else "(" ^ (commas sargs) ^ ")"))
         )
   end;
 
@@ -440,7 +444,7 @@ let
 in
   if null mth orelse null gs
   then NONE
-  else (writeln (fst (string_of_meth_and_result (hd mth))); SOME (hd gs, hd mth))
+  else ((*writeln (fst (string_of_meth_and_result (hd mth)));*) SOME (hd gs, hd mth))
 end
 
 fun get_goals_and_meths_rippling full_prf (TTree (D,ch)) =
@@ -529,8 +533,11 @@ and Uchain_from_gL _ [] = []
 
 fun make_Uchain_align full_prf tL =
   Pretty.chunks
-    (latex_env "align*" "" (map Pretty.str (Uchain_from_gL full_prf tL)))
-
+    ([Pretty.str ""]
+    @ (latex_env "minipage" "{\\textwidth}" 
+        (latex_env "align*" "" (map Pretty.str (Uchain_from_gL full_prf tL))))
+    @ [Pretty.str "\\vskip 1em", Pretty.str ""])
+    
 fun make_Uchain_align_ref g full_prf tL =
   Pretty.chunks (
     [Pretty.str "\\begin{align*}"]
@@ -587,7 +594,6 @@ in
       @ frec T
 end
 
-fun remove_schematic x = String.explode x |> filter (not o (equal "?") o str) |> String.implode
 
 fun pretty_thmL_from_fname ctxt fname =
 let
@@ -812,7 +818,7 @@ end
 fun mk_latex_document title author date document =
   Pretty.chunks
     ((map Pretty.str ["\\documentclass{article}",
-                     "\\usepackage{amsmath,amsthm,amssymb}",
+                     "\\usepackage{amsmath,amsthm,amssymb,etoolbox}",
                      "\\newcommand\\numberthis{\\addtocounter{equation}{1}\\tag{\\theequation}}",
                      "\\usepackage{verbatim}",
                      "\\usepackage{color}",
@@ -823,6 +829,20 @@ fun mk_latex_document title author date document =
                      "\\theoremstyle{definition}",
                      "\\newtheorem{definition}{Definition}",
                      "",
+                     "\\makeatletter",
+                      "\\let\\original@footnote\\footnote",
+                      "\\newcommand{\\align@footnote}[1]{%",
+                      " \\ifmeasuring@",
+                      "    \\chardef\\@tempfn=\\value{footnote}%",
+                      "    \\footnotemark",
+                      "    \\setcounter{footnote}{\\@tempfn}%",
+                      "  \\else",
+                      "    \\iffirstchoice@",
+                      "      \\original@footnote{#1}%",
+                      "    \\fi",
+                      "  \\fi}",
+                      "\\pretocmd{\\start@align}{\\let\\footnote\\align@footnote}{}{}",
+                      "\\makeatother",
                      "\\title{"^title^"}",
                      "\\author{"^author^"}",
                      "\\date{"^date^"}",
@@ -929,7 +949,7 @@ let
                   Pretty.str "$"]
 
   val distinct_thmN = tname^".distinct"
-  val distinct_terms = map (fix_vars_and_consts_in_term o HOLogic.dest_Trueprop o Trm.change_vars_to_fresh_frees o Thm.prop_of) (Sledgehammer_Util.thms_of_name ctxt distinct_thmN)
+  val distinct_terms = map ((*fix_vars_and_consts_in_term o *)HOLogic.dest_Trueprop o Trm.change_vars_to_fresh_frees o Thm.prop_of) (Sledgehammer_Util.thms_of_name ctxt distinct_thmN)
   fun treat_vars s = "$"^ fix_vars_name s^"$"
   val pretty_math_terms = map Pretty.str (remove_duplicates (map (string_latex_mathmode o remove_schematic o term_to_FO_string_latex) distinct_terms))
   fun math_terms t = Pretty.str ((string_latex_mathmode o (remove_schematic o term_to_FO_string_latex)) t)
@@ -1129,7 +1149,7 @@ fun nlproof_tree_mk full_prf (TTree (D,ch)) =
 fun nlproof_init rst fname =
   let
     val prf = PPlan.get_prf (RState.get_pplan rst)
-    val _ = Pretty.writeln (APrf.pretty prf)
+    val _ =  Pretty.writeln (APrf.pretty prf)
     val prf_is_complete = null (RState.get_goalnames rst)
     val fs = if prf_is_complete then fst else
               (fn x => case (snd x) of NONE => []
