@@ -88,7 +88,7 @@ structure DB_TM_Provers
         val _ = conjecture
             |> Proof_Display.pp_term (Proof_Context.theory_of ctxt)
             |> Pretty.writeln;
-        val g = "g"
+        val g = "g1"
         (* configure prover with dtype theorems *)
         val thms = ripple_thms_of_term ctxt conjecture;
 

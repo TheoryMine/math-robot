@@ -170,7 +170,7 @@ fun filter_ends [] =  []
    (calling a lema updates the top goal) and ID *)
 (* TODO: current goals should be correct*)
 fun restructure_tree fnm t =
-  restructure_tree_rec fnm "g" [] 0 t
+  restructure_tree_rec fnm "g1" [] 0 t
 
 and restructure_tree_rec fnm tg id i (Tree ((_,rst),ch)) =
   if null ch then
@@ -828,6 +828,7 @@ fun mk_latex_document title author date document =
                      "\\newtheorem{lemma}{Lemma}",
                      "\\theoremstyle{definition}",
                      "\\newtheorem{definition}{Definition}",
+                     "\\newcommand\\omicron{o}",
                      "",
                      "\\makeatletter",
                       "\\let\\original@footnote\\footnote",
